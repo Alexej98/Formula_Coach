@@ -3,12 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - RadioButton
+  - ConfirmButton
+  - PitLimiterButton
+  - DrinkButton
+  - DRSButton
+  - HelpButton
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Selectable
   - Water
   - UI
   - 
