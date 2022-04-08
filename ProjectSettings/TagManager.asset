@@ -10,6 +10,7 @@ TagManager:
   - DrinkButton
   - DRSButton
   - HelpButton
+  - UIText
   layers:
   - Default
   - TransparentFX

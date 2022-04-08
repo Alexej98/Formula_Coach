@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ButtonPresser : MonoBehaviour
 {
@@ -9,11 +11,15 @@ public class ButtonPresser : MonoBehaviour
     GameObject pitLimiterButton;
     GameObject drinkButton;
     GameObject drsButton;
-    GameObject helpButton;
+    Button helpButton;
 
     private LayerMask layerMask;
 
+    [SerializeField] TextMeshProUGUI uiText;
+    [SerializeField] TextMeshProUGUI helpText;
+    [SerializeField] TextMeshProUGUI errorHelpText;
     [SerializeField] private GameObject[] objectsInOrder = null;
+ 
     private int nextIndex = 0;
     private int helpCounter = 0;
     private bool[] helpButtonPressed = { false, false, false, false, false };
@@ -28,13 +34,16 @@ public class ButtonPresser : MonoBehaviour
         pitLimiterButton = GameObject.FindGameObjectWithTag("PitLimiterButton");
         drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
         drsButton = GameObject.FindGameObjectWithTag("DRSButton");
-        helpButton = GameObject.FindGameObjectWithTag("HelpButton");
+        helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
+        helpButton.onClick.AddListener(HelpButtonClicked);
+
         layerMask = LayerMask.GetMask("Selectable");
     }
 
     // Update is called once per frame
     void Update()
     {
+        errorHelpText.text = errorCounter + "\n" + helpCounter;
         if (Input.GetMouseButtonDown(0) && nextIndex >= 0 && nextIndex < objectsInOrder.Length)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,94 +55,99 @@ public class ButtonPresser : MonoBehaviour
                 {
                     nextIndex++;
                     Debug.Log("Nr. " + nextIndex + " " + hit.transform.gameObject);
+                    helpText.text = "";
                     if (nextIndex == objectsInOrder.Length)
                     {
-                        Debug.Log("Congratulations! You did it! You have made " + errorCounter + " mistakes and used " + helpCounter + " tips");
+                        uiText.text = "Congratulations! You did it! You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";
                         if (errorCounter == 0)
                         {
-                            Debug.Log("You are a true professional. See you next season!");
+                            uiText.text = "You are a true professional. See you next season!";
                         }
                         else if (errorCounter > 0 && errorCounter <= 2)
                         {
-                            Debug.Log("That's magnificent. Max Verstappen would be proud of you!");
+                            uiText.text = "That's magnificent. Max Verstappen would be proud of you!";
                         }
                         else if (errorCounter > 2 && errorCounter <= 5)
                         {
-                            Debug.Log("Not bad for a rookie. I see your potential");
+                            uiText.text = "Not bad for a rookie. I see your potential";
                         }
                         else if (errorCounter > 5 && errorCounter <= 7)
                         {
-                            Debug.Log("Keep practicing. You've got a lot to learn");
+                            uiText.text = "Keep practicing. You've got a lot to learn";
                         }
                         else
                         {
-                            Debug.Log("Get out of my simulator, you piece of Mazepin");
+                            uiText.text = "Get out of my simulator, you piece of Mazepin";
                         }
                     }
-                }
-                else if (hit.collider.gameObject.Equals(helpButton))
-                {
-                    switch (nextIndex)
+                    else
                     {
-                        case 0:
-                            {
-                                Debug.Log("It's just left from the main display!");
-                                if (!helpButtonPressed[0])
-                                {
-                                    helpCounter++;
-                                    helpButtonPressed[0] = true;
-                                }
-                                break;
-                            }
-                        case 1:
-                            {
-                                Debug.Log("It's the furthest button to the left");
-                                if (!helpButtonPressed[1])
-                                {
-                                    helpCounter++;
-                                    helpButtonPressed[1] = true;
-                                }
-                                break;
-                            }
-                        case 2:
-                            {
-                                Debug.Log("It's the big button in the upper left corner");
-                                if (!helpButtonPressed[2])
-                                {
-                                    helpCounter++;
-                                    helpButtonPressed[2] = true;
-                                }
-                                break;
-                            }
-                        case 3:
-                            {
-                                Debug.Log("It's next to the bottom right button");
-                                if (!helpButtonPressed[3])
-                                {
-                                    helpCounter++;
-                                    helpButtonPressed[3] = true;
-                                }
-                                break;
-                            }
-                        case 4:
-                            {
-                                Debug.Log("It's right from the rotation knob");
-                                if (!helpButtonPressed[4])
-                                {
-                                    helpCounter++;
-                                    helpButtonPressed[4] = true;
-                                }
-                                break;
-                            }
-
+                        uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name;
                     }
                 }
                 else
                 {
                     errorCounter++;
-                    Debug.Log("Wrong Order! You have made " + errorCounter + " mistakes");
+                    helpText.text = "Wrong Order! You have made " + errorCounter + " mistakes";
                 }
             }
+        }
+    }
+
+    void HelpButtonClicked()
+    {
+        switch (nextIndex)
+        {
+            case 0:
+                {
+                    helpText.text = "It's just left from the main display!";
+                    if (!helpButtonPressed[0])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[0] = true;
+                    }
+                    break;
+                }
+            case 1:
+                {
+                    helpText.text = "It's the furthest button to the left";
+                    if (!helpButtonPressed[1])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[1] = true;
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    helpText.text = "It's the big button in the upper left corner";
+                    if (!helpButtonPressed[2])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[2] = true;
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    helpText.text = "It's next to the bottom right button";
+                    if (!helpButtonPressed[3])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[3] = true;
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    helpText.text = "It's right from the rotation knob";
+                    if (!helpButtonPressed[4])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[4] = true;
+                    }
+                    break;
+                }
         }
     }
 }
