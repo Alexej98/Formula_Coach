@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ButtonPresser : MonoBehaviour
@@ -15,16 +16,17 @@ public class ButtonPresser : MonoBehaviour
 
     private LayerMask layerMask;
 
+    [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
     [SerializeField] private GameObject[] objectsInOrder = null;
  
     private int nextIndex = 0;
-    private int helpCounter = 0;
     private bool[] helpButtonPressed = { false, false, false, false, false };
 
-    public int errorCounter = 0;
+    public static int helpCounter = 0;
+    public static int errorCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -53,32 +55,16 @@ public class ButtonPresser : MonoBehaviour
             {
                 if (hit.collider.gameObject.Equals(objectsInOrder[nextIndex]))
                 {
+                    if (objectsInOrder[nextIndex] == radioButton)
+                    {
+                        audioSource.Play();
+                    };
                     nextIndex++;
                     Debug.Log("Nr. " + nextIndex + " " + hit.transform.gameObject);
                     helpText.text = "";
                     if (nextIndex == objectsInOrder.Length)
                     {
-                        uiText.text = "Congratulations! You did it! You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";
-                        if (errorCounter == 0)
-                        {
-                            uiText.text = "You are a true professional. See you next season!";
-                        }
-                        else if (errorCounter > 0 && errorCounter <= 2)
-                        {
-                            uiText.text = "That's magnificent. Max Verstappen would be proud of you!";
-                        }
-                        else if (errorCounter > 2 && errorCounter <= 5)
-                        {
-                            uiText.text = "Not bad for a rookie. I see your potential";
-                        }
-                        else if (errorCounter > 5 && errorCounter <= 7)
-                        {
-                            uiText.text = "Keep practicing. You've got a lot to learn";
-                        }
-                        else
-                        {
-                            uiText.text = "Get out of my simulator, you piece of Mazepin";
-                        }
+                        SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
                     }
                     else
                     {
