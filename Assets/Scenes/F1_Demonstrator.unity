@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &213562713 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+  m_PrefabInstance: {fileID: 1241991029}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &280979218
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +141,7 @@ GameObject:
   - component: {fileID: 280979219}
   - component: {fileID: 280979222}
   - component: {fileID: 280979223}
+  - component: {fileID: 280979224}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -202,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280979218}
   m_LocalRotation: {x: -0.14974056, y: -0.005030355, z: 0.00076670374, w: -0.98871225}
-  m_LocalPosition: {x: -1.1585671, y: 1.2744904, z: -1.0947456}
+  m_LocalPosition: {x: -1.1585671, y: 1.2744904, z: -1.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -263,6 +269,23 @@ MonoBehaviour:
   - {fileID: 2054228597}
   - {fileID: 1029791587}
   - {fileID: 306490042}
+--- !u!114 &280979224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280979218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ab3b3d9a756954f8d00aa512cc5adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 2
+  target: {fileID: 213562713}
+  scrollSpeed: 3
+  MaxZoomDistance: 1
+  MinZoomDistance: 0.18
 --- !u!1 &306490042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2915247737997358689, guid: 181f9698205637345bfcb4ac609807da, type: 3}
