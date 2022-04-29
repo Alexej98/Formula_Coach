@@ -27,7 +27,6 @@ public class CameraController : MonoBehaviour
         float yaw = Input.GetAxis("Mouse X");
         float pitch = Input.GetAxis("Mouse Y");
         Vector3 rotateValue = new Vector3(pitch, -yaw, 0) * rotationSpeed;
-        print(Camera.main.transform.eulerAngles.x);
         if (((Camera.main.transform.eulerAngles.y - rotateValue.y) > 312 || (Camera.main.transform.eulerAngles.y - rotateValue.y) < 48)
             && ((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89))
         {
@@ -42,8 +41,6 @@ public class CameraController : MonoBehaviour
 
         #region Limit Zoom Distance
         float nextZoomDistance = Vector3.Distance(target.position, transform.position) - ScrollAmount;
-
-        print(nextZoomDistance);
 
         if (nextZoomDistance >= MaxZoomDistance || nextZoomDistance <= MinZoomDistance)
             return;

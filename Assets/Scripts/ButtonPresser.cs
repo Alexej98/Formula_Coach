@@ -15,12 +15,13 @@ public class ButtonPresser : MonoBehaviour
     Button helpButton;
 
     private LayerMask layerMask;
-
+    
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
     [SerializeField] private GameObject[] objectsInOrder = null;
+    public Animator buttonAnimator;
  
     private int nextIndex = 0;
     private bool[] helpButtonPressed = { false, false, false, false, false };
@@ -39,6 +40,8 @@ public class ButtonPresser : MonoBehaviour
         helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
         helpButton.onClick.AddListener(HelpButtonClicked);
 
+        buttonAnimator = radioButton.GetComponent<Animator>();
+
         layerMask = LayerMask.GetMask("Selectable");
     }
 
@@ -55,10 +58,12 @@ public class ButtonPresser : MonoBehaviour
             {
                 if (hit.collider.gameObject.Equals(objectsInOrder[nextIndex]))
                 {
+                    buttonAnimator = objectsInOrder[nextIndex].GetComponent<Animator>();
                     if (objectsInOrder[nextIndex] == radioButton)
                     {
                         audioSource.Play();
                     };
+                    buttonAnimator.SetBool("pressed", true);
                     nextIndex++;
                     Debug.Log("Nr. " + nextIndex + " " + hit.transform.gameObject);
                     helpText.text = "";
