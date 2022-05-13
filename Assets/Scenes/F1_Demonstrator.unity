@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 280979222}
   - component: {fileID: 280979223}
   - component: {fileID: 280979224}
+  - component: {fileID: 280979225}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,13 +208,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280979218}
-  m_LocalRotation: {x: -0.14974056, y: -0.005030355, z: 0.00076670374, w: -0.98871225}
-  m_LocalPosition: {x: -1.1585671, y: 1.2744904, z: -1.25}
+  m_LocalRotation: {x: 0.080940664, y: 0.7330126, z: -0.088613376, w: 0.66954374}
+  m_LocalPosition: {x: -6, y: 2.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.786, y: 95.182, z: 0}
 --- !u!114 &280979222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,12 +265,15 @@ MonoBehaviour:
   helpText: {fileID: 1322559697}
   errorHelpText: {fileID: 1693670238}
   objectsInOrder:
+  - {fileID: 611254909}
+  - {fileID: 1528873584}
   - {fileID: 1054881570}
   - {fileID: 1376786669}
   - {fileID: 2054228597}
   - {fileID: 1029791587}
   - {fileID: 306490042}
-  buttonAnimator: {fileID: 0}
+  animator: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 2a6ac87e3f5cdb44abb79c9b2920eb9d, type: 2}
 --- !u!114 &280979224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +291,25 @@ MonoBehaviour:
   scrollSpeed: 3
   MaxZoomDistance: 1
   MinZoomDistance: 0.18
+--- !u!95 &280979225
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280979218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15704af4b7b6bf649a6666f178b0f213, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &306490042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2915247737997358689, guid: 181f9698205637345bfcb4ac609807da, type: 3}
@@ -574,6 +597,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 744c6df28e7530a4b8ba0de915b5e7be, type: 3}
+--- !u!1 &611254909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3602823666053713288, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+  m_PrefabInstance: {fileID: 1241991029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &611254913
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611254909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 280141976063423819, guid: 181f9698205637345bfcb4ac609807da, type: 3}
 --- !u!1 &1009952685
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Step 1: Press the Radio Button'
+  m_text: 'Step 1: Press the Car to get in'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -989,6 +1031,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8325689553952117475, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -7464181832688104227, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1075,15 +1121,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.53796
+      value: 3.971
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.09
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -89.98
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3451342859361329679, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1144,6 +1210,14 @@ PrefabInstance:
     - target: {fileID: 2915247737997358689, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_TagString
       value: DRSButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3602823666053713288, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3602823666053713288, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_TagString
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 5716597981739675928, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_Layer
@@ -1731,6 +1805,44 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.025389915, y: 0.00000001854631, z: 0.025371788}
   m_Center: {x: 0.00010806554, y: 0.00000006141124, z: 0.0011541864}
+--- !u!1 &1528873584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8325689553952117475, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+  m_PrefabInstance: {fileID: 1241991029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1528873585
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528873584}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c8fc788f9bfc8a545ac120b09f41424f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!64 &1528873588
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528873584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9147890462439599325, guid: 181f9698205637345bfcb4ac609807da, type: 3}
 --- !u!1 &1536035845
 GameObject:
   m_ObjectHideFlags: 0

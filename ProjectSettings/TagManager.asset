@@ -11,6 +11,8 @@ TagManager:
   - DRSButton
   - HelpButton
   - UIText
+  - Car
+  - SteeringWheel
   layers:
   - Default
   - TransparentFX

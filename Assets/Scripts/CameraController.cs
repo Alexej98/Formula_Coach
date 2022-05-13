@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
 
     private void RotateCamera()
     {
+        Debug.Log(Camera.main.transform.eulerAngles);
         float yaw = Input.GetAxis("Mouse X");
         float pitch = Input.GetAxis("Mouse Y");
         Vector3 rotateValue = new Vector3(pitch, -yaw, 0) * rotationSpeed;
