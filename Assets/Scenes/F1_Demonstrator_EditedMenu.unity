@@ -257,11 +257,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211389087}
   m_CullTransparentMesh: 1
---- !u!4 &213562713 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3603846734648359944, guid: 181f9698205637345bfcb4ac609807da, type: 3}
-  m_PrefabInstance: {fileID: 1241991029}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &270647993
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,9 +402,6 @@ GameObject:
   - component: {fileID: 280979220}
   - component: {fileID: 280979219}
   - component: {fileID: 280979222}
-  - component: {fileID: 280979223}
-  - component: {fileID: 280979224}
-  - component: {fileID: 280979225}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -515,68 +507,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &280979223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280979218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a0428e40705774cb9a42d59c160ab2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1536035846}
-  uiText: {fileID: 0}
-  helpText: {fileID: 0}
-  errorHelpText: {fileID: 0}
-  objectsInOrder:
-  - {fileID: 611254909}
-  - {fileID: 1528873584}
-  - {fileID: 1054881570}
-  - {fileID: 1376786669}
-  - {fileID: 2054228597}
-  - {fileID: 1029791587}
-  - {fileID: 306490042}
-  animator: {fileID: 0}
-  highlightMaterial: {fileID: 2100000, guid: 2a6ac87e3f5cdb44abb79c9b2920eb9d, type: 2}
---- !u!114 &280979224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280979218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ab3b3d9a756954f8d00aa512cc5adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 2
-  target: {fileID: 213562713}
-  scrollSpeed: 3
-  MaxZoomDistance: 1
-  MinZoomDistance: 0.18
---- !u!95 &280979225
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280979218}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 15704af4b7b6bf649a6666f178b0f213, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &306490042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2915247737997358689, guid: 181f9698205637345bfcb4ac609807da, type: 3}

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/F1_Demonstrator_PostDemoScreen.unity
     guid: ddc1bca5071c4494c8644aed7004ce93
+  - enabled: 1
+    path: Assets/Scenes/F1_Demonstrator_EditedMenu.unity
+    guid: 4e3f56f729f30f0458ce08b67df7d2bf
   m_configObjects: {}
