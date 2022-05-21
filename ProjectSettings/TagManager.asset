@@ -13,6 +13,10 @@ TagManager:
   - UIText
   - Car
   - SteeringWheel
+  - NeutralButton
+  - +1Button
+  - -10Button
+  - MiddleRotate
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,11 @@ public class ButtonPresser : MonoBehaviour
     GameObject confirmButton;
     GameObject pitLimiterButton;
     GameObject drinkButton;
+    GameObject neutralButton;
     GameObject drsButton;
+    GameObject button1;
+    GameObject button10;
+    GameObject middleRotate;
     GameObject car;
     Button helpButton;
 
@@ -30,7 +34,7 @@ public class ButtonPresser : MonoBehaviour
     public GameObject SelectedGameObject => selectedGameObject;
 
     private int nextIndex = 0;
-    private bool[] helpButtonPressed = { false, false, false, false, false };
+    private bool[] helpButtonPressed = { false, false, false, false, false, false, false, false, false, false, false };
 
     public static int helpCounter = 0;
     public static int errorCounter = 0;
@@ -42,8 +46,12 @@ public class ButtonPresser : MonoBehaviour
         confirmButton = GameObject.FindGameObjectWithTag("ConfirmButton");
         pitLimiterButton = GameObject.FindGameObjectWithTag("PitLimiterButton");
         drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
+        neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
         drsButton = GameObject.FindGameObjectWithTag("DRSButton");
         helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
+        button1 = GameObject.FindGameObjectWithTag("+1Button");
+        button10 = GameObject.FindGameObjectWithTag("-10Button");
+        middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
         helpButton.onClick.AddListener(HelpButtonClicked);
         car = GameObject.FindGameObjectWithTag("Car");
 
@@ -66,7 +74,6 @@ public class ButtonPresser : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, layerMask))
             {
-                Debug.Log(hit.collider.gameObject + ", " + objectsInOrder[nextIndex]);
                 if (hit.collider.gameObject.Equals(objectsInOrder[nextIndex]))
                 {
                     if (nextIndex != 0)
@@ -83,7 +90,6 @@ public class ButtonPresser : MonoBehaviour
                     };
                     animator.SetBool("pressed", true);
                     nextIndex++;
-                    Debug.Log("Nr. " + nextIndex + " " + hit.transform.gameObject);
                     helpText.text = "";
                     if (nextIndex == objectsInOrder.Length)
                     {
@@ -91,7 +97,19 @@ public class ButtonPresser : MonoBehaviour
                     }
                     else
                     {
-                        uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name;
+                        if (nextIndex == 1)
+                        {
+                            uiText.text = "Step 2: Press the Steering Wheel!";
+                        }
+                        else if (nextIndex == 10)
+                        {
+                            uiText.text = "Step 11: Press the Middle Rotation Knob!";
+                        }
+                        else
+                        {
+                            uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
+                        }
+                        
                     }
                 }
                 else
@@ -120,26 +138,6 @@ public class ButtonPresser : MonoBehaviour
             case 1:
                 {
                     helpText.text = "It's on the car!";
-                    if (!helpButtonPressed[0])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[0] = true;
-                    }
-                    break;
-                }
-            case 2:
-                {
-                    helpText.text = "It's just left from the main display!";
-                    if (!helpButtonPressed[0])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[0] = true;
-                    }
-                    break;
-                }
-            case 3:
-                {
-                    helpText.text = "It's the furthest button to the left";
                     if (!helpButtonPressed[1])
                     {
                         helpCounter++;
@@ -147,9 +145,9 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 4:
+            case 2:
                 {
-                    helpText.text = "It's the big button in the upper left corner";
+                    helpText.text = "It's just left from the main display!";
                     if (!helpButtonPressed[2])
                     {
                         helpCounter++;
@@ -157,9 +155,9 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 5:
+            case 3:
                 {
-                    helpText.text = "It's next to the bottom right button";
+                    helpText.text = "It's the furthest button to the left";
                     if (!helpButtonPressed[3])
                     {
                         helpCounter++;
@@ -167,13 +165,73 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 6:
+            case 4:
                 {
-                    helpText.text = "It's right from the rotation knob";
+                    helpText.text = "It's the big button in the upper right corner";
                     if (!helpButtonPressed[4])
                     {
                         helpCounter++;
                         helpButtonPressed[4] = true;
+                    }
+                    break;
+                }
+            case 5:
+                {
+                    helpText.text = "It's the big button in the upper left corner";
+                    if (!helpButtonPressed[5])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[5] = true;
+                    }
+                    break;
+                }
+            case 6:
+                {
+                    helpText.text = "It's next to the bottom left corner of the display";
+                    if (!helpButtonPressed[6])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[6] = true;
+                    }
+                    break;
+                }
+            case 7:
+                {
+                    helpText.text = "It's the one to the left of the Pit Limiter Button";
+                    if (!helpButtonPressed[7])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[7] = true;
+                    }
+                    break;
+                }
+            case 8:
+                {
+                    helpText.text = "It's the one to the left of the +1-Button";
+                    if (!helpButtonPressed[8])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[8] = true;
+                    }
+                    break;
+                }
+            case 9:
+                {
+                    helpText.text = "It's right from the rotation knob";
+                    if (!helpButtonPressed[9])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[9] = true;
+                    }
+                    break;
+                }
+            case 10:
+                {
+                    helpText.text = "It's the big rotation knob under the display";
+                    if (!helpButtonPressed[10])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[7] = true;
                     }
                     break;
                 }
