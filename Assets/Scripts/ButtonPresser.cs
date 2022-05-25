@@ -26,7 +26,9 @@ public class ButtonPresser : MonoBehaviour
     public Material[][] materialOriginalsList = new Material[3][];
     public GameObject[] carObjects;
     public int selectedObject;
-    
+    public float timerStart = 0f;
+    public float timerEnd;
+
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI helpText;
@@ -95,6 +97,12 @@ public class ButtonPresser : MonoBehaviour
                         audioSource.Play();
                     };
                     animator.SetBool("pressed", true);
+                    while (!(timerStart >= 5f))
+                    {
+                        Debug.Log(timerStart);
+                        timerStart += Time.deltaTime;
+                    }
+                    timerStart = 0f;
                     nextIndex++;
                     helpText.text = "";
                     if (nextIndex == objectsInOrder.Length)
