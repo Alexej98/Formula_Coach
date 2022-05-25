@@ -20,12 +20,18 @@ public class ButtonPresser : MonoBehaviour
     Button helpButton;
 
     private LayerMask layerMask;
+
+    public Material[] materialOriginals;
+    public Material[] materialCopies;
+    public Material[][] materialOriginalsList = new Material[3][];
+    public GameObject[] carObjects;
+    public int selectedObject;
     
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
-    [SerializeField] private GameObject[] objectsInOrder = null;
+    [SerializeField] public GameObject[] objectsInOrder = null;
     public Animator animator;
 
     [SerializeField] private Material highlightMaterial = null;
@@ -268,11 +274,44 @@ public class ButtonPresser : MonoBehaviour
         this.selectedGameObject = selectedGameObject;
         var renderer = selectedGameObject.GetComponent<Renderer>();
         selectedGameObjectMaterial = renderer.material;
+        if (nextIndex == 0)
+        {
+            if (selectedGameObject.tag.Equals("Car"))
+            {
+                selectedObject = 0;
+                carObjects = GameObject.FindGameObjectsWithTag("Car");
+                foreach (GameObject gameObj in carObjects)
+                {
+                    renderer = gameObj.GetComponent<Renderer>();
+                    materialOriginals = renderer.sharedMaterials;
+                    materialCopies = renderer.sharedMaterials;
+                    materialOriginalsList[selectedObject] = materialOriginals;
+                    for (int i = 0; i < renderer.sharedMaterials.Length; i++)
+                    {
+                        materialCopies[i] = highlightMaterial;
+                    }
+                    renderer.sharedMaterials = materialCopies;
+                    selectedObject++;
+                }
+            }
+        }
         renderer.material = highlightMaterial;
+        
     }
 
     private void DeSelect()
     {
+        if (nextIndex <= 1)
+        {
+            selectedObject = 0;
+            foreach(GameObject gameObj in carObjects)
+            {
+                var renderer = gameObj.GetComponent<Renderer>();
+                renderer.sharedMaterials = materialOriginalsList[selectedObject];
+                selectedObject++;
+            }
+
+        }
         selectedGameObject.GetComponent<Renderer>().material = selectedGameObjectMaterial;
         selectedGameObject = null;
     }

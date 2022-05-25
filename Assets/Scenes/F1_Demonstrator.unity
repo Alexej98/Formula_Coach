@@ -260,6 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a0428e40705774cb9a42d59c160ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materialOriginals: []
+  materialCopies: []
+  carObjects: []
   audioSource: {fileID: 1536035846}
   uiText: {fileID: 1009952687}
   helpText: {fileID: 1322559697}
@@ -1043,6 +1046,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -7521465604259036963, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     - target: {fileID: -7464181832688104227, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1239,6 +1246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: F1_BlenderFile
       objectReference: {fileID: 0}
+    - target: {fileID: 1090105884670071947, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_TagString
+      value: Car
+      objectReference: {fileID: 0}
     - target: {fileID: 2670570144436430161, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1274,6 +1285,14 @@ PrefabInstance:
     - target: {fileID: 6143361944101413506, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.00058815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532713722410002751, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417950346779161076, guid: 181f9698205637345bfcb4ac609807da, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8587808637677431812, guid: 181f9698205637345bfcb4ac609807da, type: 3}
       propertyPath: m_Layer
