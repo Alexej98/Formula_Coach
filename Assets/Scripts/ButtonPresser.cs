@@ -17,6 +17,7 @@ public class ButtonPresser : MonoBehaviour
     GameObject button10;
     GameObject middleRotate;
     GameObject car;
+    GameObject rearWing;
     Button helpButton;
 
     private LayerMask layerMask;
@@ -26,15 +27,17 @@ public class ButtonPresser : MonoBehaviour
     public Material[][] materialOriginalsList = new Material[3][];
     public GameObject[] carObjects;
     public int selectedObject;
-    public float timerStart = 0f;
-    public float timerEnd;
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
+    [SerializeField] TextMeshProUGUI wheelText;
     [SerializeField] public GameObject[] objectsInOrder = null;
+
     public Animator animator;
+    public Animator cameraAnimator;
+    public Animator rearWingAnimator;
 
     [SerializeField] private Material highlightMaterial = null;
     private GameObject selectedGameObject;
@@ -60,10 +63,13 @@ public class ButtonPresser : MonoBehaviour
         button1 = GameObject.FindGameObjectWithTag("+1Button");
         button10 = GameObject.FindGameObjectWithTag("-10Button");
         middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
+        rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
         helpButton.onClick.AddListener(HelpButtonClicked);
         car = GameObject.FindGameObjectWithTag("Car");
 
         animator = Camera.main.GetComponent<Animator>();
+        cameraAnimator = Camera.main.GetComponent<Animator>();
+        rearWingAnimator = rearWing.GetComponent<Animator>();
 
         layerMask = LayerMask.GetMask("Selectable");
 
@@ -97,12 +103,17 @@ public class ButtonPresser : MonoBehaviour
                         audioSource.Play();
                     };
                     animator.SetBool("pressed", true);
-                    while (!(timerStart >= 5f))
+                    if (nextIndex == 9)
                     {
-                        Debug.Log(timerStart);
-                        timerStart += Time.deltaTime;
+                        cameraAnimator.SetBool("drs", true);
+                        rearWingAnimator.SetBool("open", true);
                     }
-                    timerStart = 0f;
+                    if (nextIndex == 10)
+                    {
+                        cameraAnimator.SetBool("drs", false);
+                        rearWingAnimator.SetBool("open", false);
+                    }
+                    ChangeWheelText();
                     nextIndex++;
                     helpText.text = "";
                     if (nextIndex == objectsInOrder.Length)
@@ -115,9 +126,9 @@ public class ButtonPresser : MonoBehaviour
                         {
                             uiText.text = "Step 2: Press the Steering Wheel!";
                         }
-                        else if (nextIndex == 10)
+                        else if (nextIndex == 11)
                         {
-                            uiText.text = "Step 11: Press the Middle Rotation Knob!";
+                            uiText.text = "Step 12: Press the Middle Rotation Knob!";
                         }
                         else
                         {
@@ -132,6 +143,50 @@ public class ButtonPresser : MonoBehaviour
                     helpText.text = "Wrong Order! You have made " + errorCounter + " mistakes";
                 }
             }
+        }
+    }
+
+    void ChangeWheelText()
+    {
+        if (nextIndex == 2)
+        {
+            wheelText.text = "RADIO ON!";
+        }
+        else if (nextIndex == 3)
+        {
+            wheelText.text = "PIT CONFIRMED!";
+        }
+        else if (nextIndex == 4)
+        {
+            wheelText.text = "SPEED LIMITED!";
+        }
+        else if (nextIndex == 5)
+        {
+            wheelText.text = "SPEED LIMIT LIFTED!";
+        }
+        else if (nextIndex == 6)
+        {
+            wheelText.text = "HYDRATION ACTIVATED!";
+        }
+        else if (nextIndex == 7)
+        {
+            wheelText.text = "???";
+        }
+        else if (nextIndex == 8)
+        {
+            wheelText.text = "???";
+        }
+        else if (nextIndex == 9)
+        {
+            wheelText.text = "DRS ACTIVATED!";
+        }
+        else if (nextIndex == 10)
+        {
+            wheelText.text = "DRS DEACTIVATED";
+        }
+        else if (nextIndex == 11)
+        {
+            wheelText.text = "???";
         }
     }
 
@@ -240,6 +295,16 @@ public class ButtonPresser : MonoBehaviour
                     break;
                 }
             case 10:
+                {
+                    helpText.text = "It's right from the rotation knob";
+                    if (!helpButtonPressed[9])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[9] = true;
+                    }
+                    break;
+                }
+            case 11:
                 {
                     helpText.text = "It's the big rotation knob under the display";
                     if (!helpButtonPressed[10])
