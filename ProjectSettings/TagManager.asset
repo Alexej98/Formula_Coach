@@ -18,6 +18,7 @@ TagManager:
   - -10Button
   - MiddleRotate
   - RearWingPivot
+  - F1
   layers:
   - Default
   - TransparentFX

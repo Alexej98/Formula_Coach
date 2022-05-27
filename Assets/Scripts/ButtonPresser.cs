@@ -18,6 +18,8 @@ public class ButtonPresser : MonoBehaviour
     GameObject middleRotate;
     GameObject car;
     GameObject rearWing;
+    GameObject steeringWheel;
+    GameObject f1;
     Button helpButton;
 
     private LayerMask layerMask;
@@ -66,6 +68,8 @@ public class ButtonPresser : MonoBehaviour
         rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
         helpButton.onClick.AddListener(HelpButtonClicked);
         car = GameObject.FindGameObjectWithTag("Car");
+        steeringWheel = GameObject.FindGameObjectWithTag("SteeringWheel");
+        f1 = GameObject.FindGameObjectWithTag("F1");
 
         animator = Camera.main.GetComponent<Animator>();
         cameraAnimator = Camera.main.GetComponent<Animator>();
@@ -90,52 +94,7 @@ public class ButtonPresser : MonoBehaviour
             {
                 if (hit.collider.gameObject.Equals(objectsInOrder[nextIndex]))
                 {
-                    if (nextIndex != 0)
-                    {
-                        animator = objectsInOrder[nextIndex].GetComponent<Animator>();
-                    }
-                    if (nextIndex == 0 || nextIndex == 1)
-                    {
-                        hit.collider.gameObject.GetComponent<Collider>().enabled = false;
-                    }
-                    if (objectsInOrder[nextIndex] == radioButton)
-                    {
-                        audioSource.Play();
-                    };
-                    animator.SetBool("pressed", true);
-                    if (nextIndex == 9)
-                    {
-                        cameraAnimator.SetBool("drs", true);
-                        rearWingAnimator.SetBool("open", true);
-                    }
-                    if (nextIndex == 10)
-                    {
-                        cameraAnimator.SetBool("drs", false);
-                        rearWingAnimator.SetBool("open", false);
-                    }
-                    ChangeWheelText();
-                    nextIndex++;
-                    helpText.text = "";
-                    if (nextIndex == objectsInOrder.Length)
-                    {
-                        SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
-                    }
-                    else
-                    {
-                        if (nextIndex == 1)
-                        {
-                            uiText.text = "Step 2: Press the Steering Wheel!";
-                        }
-                        else if (nextIndex == 11)
-                        {
-                            uiText.text = "Step 12: Press the Middle Rotation Knob!";
-                        }
-                        else
-                        {
-                            uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
-                        }
-                        
-                    }
+                    StartCoroutine(waitForSomeTime(hit));
                 }
                 else
                 {
@@ -143,6 +102,103 @@ public class ButtonPresser : MonoBehaviour
                     helpText.text = "Wrong Order! You have made " + errorCounter + " mistakes";
                 }
             }
+        }
+    }
+
+    IEnumerator waitForSomeTime(RaycastHit hit)
+    {
+        if (nextIndex != 0)
+        {
+            animator = objectsInOrder[nextIndex].GetComponent<Animator>();
+        }
+        if (nextIndex == 0 || nextIndex == 1)
+        {
+            hit.collider.gameObject.GetComponent<Collider>().enabled = false;
+        }
+        if (objectsInOrder[nextIndex] == radioButton)
+        {
+            audioSource.Play();
+        };
+        animator.SetBool("pressed", true);
+        if (nextIndex == 9)
+        {
+            cameraAnimator.SetBool("drs", true);
+            rearWingAnimator.SetBool("open", true);
+        }
+        if (nextIndex == 10)
+        {
+            cameraAnimator.SetBool("drs", false);
+            rearWingAnimator.SetBool("open", false);
+            animator.SetBool("pressedAgain", true);
+        }
+        foreach(Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+        {
+            gbjCollider.enabled = false;
+        }
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        for (int childIndex=0; childIndex<f1.transform.childCount; childIndex++)
+        {
+            var child = f1.transform.GetChild(childIndex);
+            try
+            {
+                if (nextIndex == 0)
+                {
+                    if (!child.tag.Equals("Car"))
+                    {
+                        child.GetComponent<Collider>().enabled = true;
+                    }
+                }
+                else
+                {
+                    for(int wheelChildIndex=0; wheelChildIndex<steeringWheel.transform.childCount; wheelChildIndex++)
+                    {
+                        var wheelChild = steeringWheel.transform.GetChild(wheelChildIndex);
+                        try
+                        {
+                            wheelChild.GetComponent<Collider>().enabled = true;
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                wheelChild.GetChild(0).GetComponent<Collider>().enabled = true;
+                            }
+                            catch 
+                            {
+                                continue;
+                            };
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                continue;
+            }
+            
+        }
+        ChangeWheelText();
+        nextIndex++;
+        helpText.text = "";
+        if (nextIndex == objectsInOrder.Length)
+        {
+            SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
+        }
+        else
+        {
+            if (nextIndex == 1)
+            {
+                uiText.text = "Step 2: Press the Steering Wheel!";
+            }
+            else if (nextIndex == 11)
+            {
+                uiText.text = "Step 12: Press the Middle Rotation Knob!";
+            }
+            else
+            {
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
+            }
+
         }
     }
 
