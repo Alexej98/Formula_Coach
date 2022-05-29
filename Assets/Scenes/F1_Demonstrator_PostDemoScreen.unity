@@ -1954,7 +1954,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1776288877}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneFromEnd
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2436,6 +2436,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 19ecb7aa01c74534fb72450e31acae6b, type: 3}
   buttonAudioSource: {fileID: 1680759912}
   backgroundAudioSource: {fileID: 0}
+  tutorialButton: {fileID: 0}
+  demoButton: {fileID: 0}
+  controlButton: {fileID: 0}
+  quitButton: {fileID: 0}
+  backButton: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!4 &1776288878
 Transform:
   m_ObjectHideFlags: 0

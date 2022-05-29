@@ -21,6 +21,7 @@ public class ButtonPresser : MonoBehaviour
     GameObject steeringWheel;
     GameObject f1;
     Button helpButton;
+    Button quitButton;
 
     private LayerMask layerMask;
 
@@ -62,11 +63,13 @@ public class ButtonPresser : MonoBehaviour
         neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
         drsButton = GameObject.FindGameObjectWithTag("DRSButton");
         helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
+        helpButton.onClick.AddListener(HelpButtonClicked);
+        quitButton = GameObject.FindGameObjectWithTag("QuitButtonDemo").GetComponent<Button>();
         button1 = GameObject.FindGameObjectWithTag("+1Button");
+        quitButton.onClick.AddListener(QuitButtonClicked);
         button10 = GameObject.FindGameObjectWithTag("-10Button");
         middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
         rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
-        helpButton.onClick.AddListener(HelpButtonClicked);
         car = GameObject.FindGameObjectWithTag("Car");
         steeringWheel = GameObject.FindGameObjectWithTag("SteeringWheel");
         f1 = GameObject.FindGameObjectWithTag("F1");
@@ -135,6 +138,7 @@ public class ButtonPresser : MonoBehaviour
         {
             gbjCollider.enabled = false;
         }
+        ChangeWheelText();
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
         for (int childIndex=0; childIndex<f1.transform.childCount; childIndex++)
         {
@@ -177,7 +181,6 @@ public class ButtonPresser : MonoBehaviour
             }
             
         }
-        ChangeWheelText();
         nextIndex++;
         helpText.text = "";
         if (nextIndex == objectsInOrder.Length)
@@ -244,6 +247,11 @@ public class ButtonPresser : MonoBehaviour
         {
             wheelText.text = "???";
         }
+    }
+
+    void QuitButtonClicked()
+    {
+        SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 
     void HelpButtonClicked()

@@ -19,6 +19,12 @@ TagManager:
   - MiddleRotate
   - RearWingPivot
   - F1
+  - TutorialButton
+  - DemoButton
+  - QuitButton
+  - ControlButton
+  - BackButton
+  - QuitButtonDemo
   layers:
   - Default
   - TransparentFX
