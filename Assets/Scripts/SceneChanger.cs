@@ -13,6 +13,8 @@ public class SceneChanger : MonoBehaviour
     GameObject controlButton;
     GameObject quitButton;
     GameObject backButton;
+    GameObject title;
+    GameObject controls;
     Animator animator;
 
     private void Start()
@@ -23,6 +25,8 @@ public class SceneChanger : MonoBehaviour
         controlButton = GameObject.FindGameObjectWithTag("ControlButton");
         quitButton = GameObject.FindGameObjectWithTag("QuitButton");
         backButton = GameObject.FindGameObjectWithTag("BackButton");
+        title = GameObject.FindGameObjectWithTag("Title");
+        controls = GameObject.FindGameObjectWithTag("Controls");
     }
 
     public void LoadSceneFromEnd(string name)
@@ -50,6 +54,7 @@ public class SceneChanger : MonoBehaviour
         Destroy(controlButton);
         Destroy(quitButton);
         Destroy(backButton);
+        Destroy(title);
         animator.SetBool("start", true);
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
         SceneManager.LoadScene(name);
@@ -63,17 +68,47 @@ public class SceneChanger : MonoBehaviour
 
     public void CameraAnimation()
     {
-        buttonAudioSource.clip = audioClips[0];
-        buttonAudioSource.Play();
-        animator.SetBool("pressed", true);
+        StartCoroutine("ControlsAnimation");
     }
 
     public void CameraAnimationBack()
     {
+        StartCoroutine("ControlsAnimationBack");
+    }
+
+    IEnumerator ControlsAnimation()
+    {
+        buttonAudioSource.clip = audioClips[0];
+        buttonAudioSource.Play();
+        animator.SetBool("pressed", true);
+        tutorialButton.SetActive(false);
+        demoButton.SetActive(false);
+        controlButton.SetActive(false);
+        quitButton.SetActive(false);
+        backButton.SetActive(false);
+        title.SetActive(false);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        controls.transform.position = new Vector3(controls.transform.position.x, 0.0092f, controls.transform.position.z);
+        backButton.SetActive(true);
+        
+    }
+
+    IEnumerator ControlsAnimationBack()
+    {
         buttonAudioSource.clip = audioClips[0];
         buttonAudioSource.Play();
         animator.SetBool("pressed", false);
+        backButton.SetActive(false);
+        controls.transform.position = new Vector3(controls.transform.position.x, 0f, controls.transform.position.z);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 2.5f);
+        tutorialButton.SetActive(true);
+        demoButton.SetActive(true);
+        controlButton.SetActive(true);
+        quitButton.SetActive(true);
+        title.SetActive(true);
     }
+
+
 
     public void Quit()
     {

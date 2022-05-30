@@ -25,6 +25,8 @@ TagManager:
   - ControlButton
   - BackButton
   - QuitButtonDemo
+  - Controls
+  - Title
   layers:
   - Default
   - TransparentFX
