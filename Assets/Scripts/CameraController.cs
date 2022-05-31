@@ -9,6 +9,13 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float scrollSpeed = 3.0f;
     [SerializeField] private float MaxZoomDistance = 20.0f;
     [SerializeField] private float MinZoomDistance = 4.0f;
+    private int nextIndex;
+
+    private void Start()
+    {
+        nextIndex = ButtonPresser.nextIndex;
+        Debug.Log(nextIndex);
+    }
 
     private void LateUpdate()
     {
@@ -27,12 +34,19 @@ public class CameraController : MonoBehaviour
         float yaw = Input.GetAxis("Mouse X");
         float pitch = Input.GetAxis("Mouse Y");
         Vector3 rotateValue = new Vector3(pitch, -yaw, 0) * rotationSpeed;
-        if (((Camera.main.transform.eulerAngles.y - rotateValue.y) > 312 || (Camera.main.transform.eulerAngles.y - rotateValue.y) < 48)
-            && ((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89))
+
+        if (nextIndex == 0)
         {
             Camera.main.transform.eulerAngles -= rotateValue;
         }
-           
+        else
+        {
+            if (((Camera.main.transform.eulerAngles.y - rotateValue.y) > 312 || (Camera.main.transform.eulerAngles.y - rotateValue.y) < 48)
+            && ((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89))
+            {
+                Camera.main.transform.eulerAngles -= rotateValue;
+            }
+        }   
     }
 
     private void Zoom()

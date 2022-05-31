@@ -33,6 +33,7 @@ public class ButtonPresser : MonoBehaviour
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
+    [SerializeField] TextMeshProUGUI uiTextSmall;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
     [SerializeField] TextMeshProUGUI wheelText;
@@ -47,7 +48,7 @@ public class ButtonPresser : MonoBehaviour
     private Material selectedGameObjectMaterial;
     public GameObject SelectedGameObject => selectedGameObject;
 
-    private int nextIndex = 0;
+    public static int nextIndex = 0;
     private bool[] helpButtonPressed = { false, false, false, false, false, false, false, false, false, false, false };
 
     public static int helpCounter = 0;
@@ -196,12 +197,48 @@ public class ButtonPresser : MonoBehaviour
             else if (nextIndex == 11)
             {
                 uiText.text = "Step 12: Press the Middle Rotation Knob!";
+                uiTextSmall.text = "???";
             }
             else
             {
                 uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
             }
-
+            if (nextIndex == 2)
+            {
+                uiTextSmall.text = "By pressing it, you can connect with your team engineer";
+            }
+            else if (nextIndex == 3)
+            {
+                uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
+            }
+            else if (nextIndex == 4)
+            {
+                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies this limit to the current speed";
+            }
+            else if (nextIndex == 5)
+            {
+                uiTextSmall.text = "When the car leaves the pit lane, this button lifts the limit and the driver can start to speed up";
+            }
+            if (nextIndex == 6)
+            {
+                uiTextSmall.text = "This button activates the liquid supply";
+            }
+            else if (nextIndex == 7)
+            {
+                uiTextSmall.text = "While checking the individual information of the car, this buttons helps to change between the views on the dislpay";
+            }
+            else if (nextIndex == 8)
+            {
+                uiTextSmall.text = "It's useful to skip multiple views at once";
+            }
+            else if (nextIndex == 9)
+            {
+                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and is very useful for overtaking cars during the race";
+            }
+            else if (nextIndex == 10)
+            {
+                uiTextSmall.text = "By pressing the button again, the rear wing gets closed";
+            }
         }
     }
 
