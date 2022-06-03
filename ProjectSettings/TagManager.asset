@@ -27,6 +27,8 @@ TagManager:
   - QuitButtonDemo
   - Controls
   - Title
+  - TestingDisplay
+  - RacingDisplay
   layers:
   - Default
   - TransparentFX

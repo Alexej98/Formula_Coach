@@ -23,6 +23,9 @@ public class ButtonPresser : MonoBehaviour
     Button helpButton;
     Button quitButton;
 
+    GameObject racingDisplay;
+    GameObject testingDisplay;
+
     private LayerMask layerMask;
 
     public Material[] materialOriginals;
@@ -36,7 +39,6 @@ public class ButtonPresser : MonoBehaviour
     [SerializeField] TextMeshProUGUI uiTextSmall;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
-    [SerializeField] TextMeshProUGUI wheelText;
     [SerializeField] public GameObject[] objectsInOrder = null;
 
     public Animator animator;
@@ -75,8 +77,14 @@ public class ButtonPresser : MonoBehaviour
         steeringWheel = GameObject.FindGameObjectWithTag("SteeringWheel");
         f1 = GameObject.FindGameObjectWithTag("F1");
 
+        racingDisplay = GameObject.FindGameObjectWithTag("RacingDisplay");
+        testingDisplay = GameObject.FindGameObjectWithTag("TestingDisplay");
+        racingDisplay.SetActive(false);
+        testingDisplay.SetActive(false);
+
         animator = Camera.main.GetComponent<Animator>();
         cameraAnimator = Camera.main.GetComponent<Animator>();
+        cameraAnimator.enabled = false;
         rearWingAnimator = rearWing.GetComponent<Animator>();
 
         layerMask = LayerMask.GetMask("Selectable");
@@ -123,14 +131,24 @@ public class ButtonPresser : MonoBehaviour
         {
             audioSource.Play();
         };
-        animator.SetBool("pressed", true);
+        if (nextIndex == 0)
+        {
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("pressed", true);
+        }
+        else
+        {
+            animator.SetBool("pressed", true);
+        }
         if (nextIndex == 9)
         {
+            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", true);
             rearWingAnimator.SetBool("open", true);
         }
         if (nextIndex == 10)
         {
+            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", false);
             rearWingAnimator.SetBool("open", false);
             animator.SetBool("pressedAgain", true);
@@ -141,6 +159,15 @@ public class ButtonPresser : MonoBehaviour
         }
         ChangeWheelText();
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        if(nextIndex == 1)
+        {
+            racingDisplay.SetActive(true);
+        }
+        else if (nextIndex == 3)
+        {
+            racingDisplay.SetActive(false);
+            testingDisplay.SetActive(true);
+        }
         for (int childIndex=0; childIndex<f1.transform.childCount; childIndex++)
         {
             var child = f1.transform.GetChild(childIndex);
@@ -194,39 +221,40 @@ public class ButtonPresser : MonoBehaviour
             {
                 uiText.text = "Step 2: Press the Steering Wheel!";
             }
-            else if (nextIndex == 11)
+            else if (nextIndex == 2)
             {
-                uiText.text = "Step 12: Press the Middle Rotation Knob!";
-                uiTextSmall.text = "???";
+                uiText.text = "Step 3: Press the Middle Rotation Knob!";
+                uiTextSmall.text = "Here you can activate the Display Mode to change between the displays";
             }
             else
             {
                 uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
             }
-            if (nextIndex == 2)
+            if (nextIndex == 3)
+            {
+                uiTextSmall.text = "While checking the individual information of the car, this button helps to change between the views on the dislpay";
+            }
+            if (nextIndex == 4)
             {
                 uiTextSmall.text = "By pressing it, you can connect with your team engineer";
             }
-            else if (nextIndex == 3)
+            else if (nextIndex == 5)
             {
                 uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
             }
-            else if (nextIndex == 4)
+            else if (nextIndex == 6)
             {
                 uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies this limit to the current speed";
             }
-            else if (nextIndex == 5)
+            else if (nextIndex == 7)
             {
                 uiTextSmall.text = "When the car leaves the pit lane, this button lifts the limit and the driver can start to speed up";
             }
-            if (nextIndex == 6)
+            if (nextIndex == 8)
             {
                 uiTextSmall.text = "This button activates the liquid supply";
             }
-            else if (nextIndex == 7)
-            {
-                uiTextSmall.text = "While checking the individual information of the car, this buttons helps to change between the views on the dislpay";
-            }
+
             else if (nextIndex == 8)
             {
                 uiTextSmall.text = "It's useful to skip multiple views at once";
@@ -240,50 +268,12 @@ public class ButtonPresser : MonoBehaviour
                 uiTextSmall.text = "By pressing the button again, the rear wing gets closed";
             }
         }
+        cameraAnimator.enabled = false;
     }
 
     void ChangeWheelText()
     {
-        if (nextIndex == 2)
-        {
-            wheelText.text = "RADIO ON!";
-        }
-        else if (nextIndex == 3)
-        {
-            wheelText.text = "PIT CONFIRMED!";
-        }
-        else if (nextIndex == 4)
-        {
-            wheelText.text = "SPEED LIMITED!";
-        }
-        else if (nextIndex == 5)
-        {
-            wheelText.text = "SPEED LIMIT LIFTED!";
-        }
-        else if (nextIndex == 6)
-        {
-            wheelText.text = "HYDRATION ACTIVATED!";
-        }
-        else if (nextIndex == 7)
-        {
-            wheelText.text = "???";
-        }
-        else if (nextIndex == 8)
-        {
-            wheelText.text = "???";
-        }
-        else if (nextIndex == 9)
-        {
-            wheelText.text = "DRS ACTIVATED!";
-        }
-        else if (nextIndex == 10)
-        {
-            wheelText.text = "DRS DEACTIVATED";
-        }
-        else if (nextIndex == 11)
-        {
-            wheelText.text = "???";
-        }
+        
     }
 
     void QuitButtonClicked()
@@ -317,55 +307,16 @@ public class ButtonPresser : MonoBehaviour
                 }
             case 2:
                 {
-                    helpText.text = "It's just left from the main display!";
-                    if (!helpButtonPressed[2])
+                    helpText.text = "It's the big rotation knob under the display";
+                    if (!helpButtonPressed[10])
                     {
                         helpCounter++;
-                        helpButtonPressed[2] = true;
+                        helpButtonPressed[7] = true;
                     }
                     break;
                 }
+
             case 3:
-                {
-                    helpText.text = "It's the furthest button to the left";
-                    if (!helpButtonPressed[3])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[3] = true;
-                    }
-                    break;
-                }
-            case 4:
-                {
-                    helpText.text = "It's the big button in the upper right corner";
-                    if (!helpButtonPressed[4])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[4] = true;
-                    }
-                    break;
-                }
-            case 5:
-                {
-                    helpText.text = "It's the big button in the upper left corner";
-                    if (!helpButtonPressed[5])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[5] = true;
-                    }
-                    break;
-                }
-            case 6:
-                {
-                    helpText.text = "It's next to the bottom left corner of the display";
-                    if (!helpButtonPressed[6])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[6] = true;
-                    }
-                    break;
-                }
-            case 7:
                 {
                     helpText.text = "It's the one to the left of the Pit Limiter Button";
                     if (!helpButtonPressed[7])
@@ -375,23 +326,64 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
+            case 4:
+                {
+                    helpText.text = "It's just left from the main display!";
+                    if (!helpButtonPressed[2])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[2] = true;
+                    }
+                    break;
+                }
+            case 5:
+                {
+                    helpText.text = "It's the furthest button to the left";
+                    if (!helpButtonPressed[3])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[3] = true;
+                    }
+                    break;
+                }
+            case 6:
+                {
+                    helpText.text = "It's the big button in the upper right corner";
+                    if (!helpButtonPressed[4])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[4] = true;
+                    }
+                    break;
+                }
+            case 7:
+                {
+                    helpText.text = "It's the big button in the upper left corner";
+                    if (!helpButtonPressed[5])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[5] = true;
+                    }
+                    break;
+                }
             case 8:
+                {
+                    helpText.text = "It's next to the bottom left corner of the display";
+                    if (!helpButtonPressed[6])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[6] = true;
+                    }
+                    break;
+                }
+
+            case 9:
                 {
                     helpText.text = "It's the one to the left of the +1-Button";
                     if (!helpButtonPressed[8])
                     {
                         helpCounter++;
                         helpButtonPressed[8] = true;
-                    }
-                    break;
-                }
-            case 9:
-                {
-                    helpText.text = "It's right from the rotation knob";
-                    if (!helpButtonPressed[9])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[9] = true;
                     }
                     break;
                 }
@@ -402,16 +394,6 @@ public class ButtonPresser : MonoBehaviour
                     {
                         helpCounter++;
                         helpButtonPressed[9] = true;
-                    }
-                    break;
-                }
-            case 11:
-                {
-                    helpText.text = "It's the big rotation knob under the display";
-                    if (!helpButtonPressed[10])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[7] = true;
                     }
                     break;
                 }

@@ -14,11 +14,11 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         nextIndex = ButtonPresser.nextIndex;
-        Debug.Log(nextIndex);
     }
 
     private void LateUpdate()
     {
+        nextIndex = ButtonPresser.nextIndex;
         if (Input.GetMouseButton(1))
         {
             RotateCamera();
@@ -37,7 +37,9 @@ public class CameraController : MonoBehaviour
 
         if (nextIndex == 0)
         {
-            Camera.main.transform.eulerAngles -= rotateValue;
+            if(((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89)){
+                Camera.main.transform.eulerAngles -= rotateValue;
+            }
         }
         else
         {
