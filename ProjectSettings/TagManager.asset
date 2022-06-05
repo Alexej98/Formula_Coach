@@ -29,6 +29,7 @@ TagManager:
   - Title
   - TestingDisplay
   - RacingDisplay
+  - RadioOnOff
   layers:
   - Default
   - TransparentFX

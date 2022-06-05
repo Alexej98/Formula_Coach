@@ -39,7 +39,15 @@ public class ButtonPresser : MonoBehaviour
     [SerializeField] TextMeshProUGUI uiTextSmall;
     [SerializeField] TextMeshProUGUI helpText;
     [SerializeField] TextMeshProUGUI errorHelpText;
+    [SerializeField] TextMeshProUGUI radioOnOff;
+    [SerializeField] TextMeshProUGUI pitConfirmed;
+    [SerializeField] TextMeshProUGUI pitLimited;
+    [SerializeField] TextMeshProUGUI neutral;
+    [SerializeField] TextMeshProUGUI drinkActive;
+    [SerializeField] TextMeshProUGUI drsActive;
     [SerializeField] public GameObject[] objectsInOrder = null;
+
+    [SerializeField] AudioClip slurp;
 
     public Animator animator;
     public Animator cameraAnimator;
@@ -130,7 +138,12 @@ public class ButtonPresser : MonoBehaviour
         if (objectsInOrder[nextIndex] == radioButton)
         {
             audioSource.Play();
-        };
+        }
+        else if(objectsInOrder[nextIndex] == drinkButton)
+        {
+            audioSource.clip = slurp;
+            audioSource.Play();
+        }
         if (nextIndex == 0)
         {
             cameraAnimator.enabled = true;
@@ -159,6 +172,7 @@ public class ButtonPresser : MonoBehaviour
         }
         ChangeWheelText();
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        ChangeWheelTextBack();
         if(nextIndex == 1)
         {
             racingDisplay.SetActive(true);
@@ -273,7 +287,59 @@ public class ButtonPresser : MonoBehaviour
 
     void ChangeWheelText()
     {
-        
+        if(nextIndex == 4)
+        {
+            radioOnOff.text = "ON";
+            radioOnOff.color = Color.green;
+        }
+        else if(nextIndex == 5)
+        {
+            pitConfirmed.text = "TESTED";
+            pitConfirmed.color = Color.green;
+        }
+        else if (nextIndex == 6)
+        {
+            neutral.text = "OFF";
+            neutral.color = Color.red;
+            pitLimited.text = "ON";
+            pitLimited.color = Color.green;
+        }
+        else if (nextIndex == 7)
+        {
+            neutral.text = "ON";
+            neutral.color = Color.green;
+            pitLimited.text = "OFF";
+            pitLimited.color = Color.red;
+        }
+        else if (nextIndex == 8)
+        {
+            drinkActive.text = "ON";
+            drinkActive.color = Color.green;
+        }
+        else if (nextIndex == 9)
+        {
+            drsActive.text = "ON";
+            drsActive.color = Color.green;
+        }
+        else if (nextIndex == 10)
+        {
+            drsActive.text = "OFF";
+            drsActive.color = Color.red;
+        }
+    }
+
+    void ChangeWheelTextBack()
+    {
+        if (nextIndex == 4)
+        {
+            radioOnOff.text = "OFF";
+            radioOnOff.color = Color.red;
+        }
+        else if (nextIndex == 8)
+        {
+            drinkActive.text = "OFF";
+            drinkActive.color = Color.red;
+        }
     }
 
     void QuitButtonClicked()

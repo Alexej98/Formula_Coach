@@ -2741,15 +2741,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This background music is licensed under the Attribution 4.0 License.
+  m_text: 'This music/sounds are licensed under the Attribution 3.0/4.0 License.
 
 
     The
-    work was not modified and is available under Public License at:
+    works were not modified and are available under Public License at:
 
     https://freesound.org/people/Migfus20/sounds/562604/
 
-'
+    https://freesound.org/people/Anton/sounds/8631/'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3556,6 +3556,7 @@ MonoBehaviour:
 
     Migfus20
 
+    Anton
 
 '
   m_isRightToLeft: 0
