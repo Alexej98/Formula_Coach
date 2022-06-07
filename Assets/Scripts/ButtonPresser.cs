@@ -48,6 +48,7 @@ public class ButtonPresser : MonoBehaviour
     [SerializeField] public GameObject[] objectsInOrder = null;
 
     [SerializeField] AudioClip slurp;
+    [SerializeField] AudioClip buttonClick;
 
     public Animator animator;
     public Animator cameraAnimator;
@@ -172,7 +173,6 @@ public class ButtonPresser : MonoBehaviour
         }
         ChangeWheelText();
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-        ChangeWheelTextBack();
         if(nextIndex == 1)
         {
             racingDisplay.SetActive(true);
@@ -289,7 +289,7 @@ public class ButtonPresser : MonoBehaviour
     {
         if(nextIndex == 4)
         {
-            radioOnOff.text = "ON";
+            radioOnOff.text = "TESTED";
             radioOnOff.color = Color.green;
         }
         else if(nextIndex == 5)
@@ -299,51 +299,35 @@ public class ButtonPresser : MonoBehaviour
         }
         else if (nextIndex == 6)
         {
-            neutral.text = "OFF";
-            neutral.color = Color.red;
-            pitLimited.text = "ON";
+            pitLimited.text = "TESTED";
             pitLimited.color = Color.green;
         }
         else if (nextIndex == 7)
         {
-            neutral.text = "ON";
+            neutral.text = "TESTED";
             neutral.color = Color.green;
-            pitLimited.text = "OFF";
-            pitLimited.color = Color.red;
         }
         else if (nextIndex == 8)
         {
-            drinkActive.text = "ON";
+            drinkActive.text = "TESTED";
             drinkActive.color = Color.green;
         }
         else if (nextIndex == 9)
         {
-            drsActive.text = "ON";
-            drsActive.color = Color.green;
+            drsActive.text = "TESTED 1/2";
+            drsActive.color = Color.yellow;
         }
         else if (nextIndex == 10)
         {
-            drsActive.text = "OFF";
-            drsActive.color = Color.red;
-        }
-    }
-
-    void ChangeWheelTextBack()
-    {
-        if (nextIndex == 4)
-        {
-            radioOnOff.text = "OFF";
-            radioOnOff.color = Color.red;
-        }
-        else if (nextIndex == 8)
-        {
-            drinkActive.text = "OFF";
-            drinkActive.color = Color.red;
+            drsActive.text = "TESTED 2/2";
+            drsActive.color = Color.green;
         }
     }
 
     void QuitButtonClicked()
     {
+        audioSource.clip = buttonClick;
+        audioSource.Play();
         SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 

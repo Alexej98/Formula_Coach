@@ -100,7 +100,7 @@ public class SceneChanger : MonoBehaviour
         animator.SetBool("pressed", false);
         backButton.SetActive(false);
         controls.transform.position = new Vector3(controls.transform.position.x, 0f, controls.transform.position.z);
-        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 2.0f);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
         tutorialButton.SetActive(true);
         demoButton.SetActive(true);
         controlButton.SetActive(true);
