@@ -240,6 +240,14 @@ public class ButtonPresser : MonoBehaviour
                 uiText.text = "Step 3: Press the Middle Rotation Knob!";
                 uiTextSmall.text = "Here you can activate the Display Mode to change between the displays";
             }
+            else if (nextIndex == 6)
+            {
+                uiText.text = "Step 7: Press the Pit Limiter Button!";
+            }
+            else if (nextIndex == 9 || nextIndex == 10)
+            {
+                uiText.text = "Step " + (nextIndex+1) + ": Press the DRS-Button!";
+            }
             else
             {
                 uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
