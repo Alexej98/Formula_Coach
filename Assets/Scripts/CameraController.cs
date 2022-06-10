@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] public float moveSpeed = 3f; 
     [SerializeField] public float rotationSpeed = 2f;
     [SerializeField] private Transform target = null;
     [SerializeField] private float scrollSpeed = 3.0f;
@@ -26,6 +27,22 @@ public class CameraController : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             Zoom();
+        }
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            MoveForward();
+        }
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            MoveLeft();
+        }
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            MoveBack();
+        }
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            MoveRight();
         }
     }
 
@@ -63,5 +80,25 @@ public class CameraController : MonoBehaviour
         #endregion
 
         transform.Translate(new Vector3(0, 0, ScrollAmount*0.05f), Space.Self);
+    }
+
+    private void MoveForward()
+    {
+        transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
+    }
+
+    private void MoveLeft()
+    {
+        transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
+    }
+
+    private void MoveBack()
+    {
+        transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
+    }
+
+    private void MoveRight()
+    {
+        transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
     }
 }
