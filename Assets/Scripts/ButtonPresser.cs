@@ -108,6 +108,7 @@ public class ButtonPresser : MonoBehaviour
         errorHelpText.text = errorCounter + "\n" + helpCounter;
         if (Input.GetMouseButtonDown(0) && nextIndex >= 0 && nextIndex < objectsInOrder.Length)
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -172,12 +173,19 @@ public class ButtonPresser : MonoBehaviour
             gbjCollider.enabled = false;
         }
         ChangeWheelText();
+        helpButton.interactable = false;
+        quitButton.interactable = false;
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-        if(nextIndex == 1)
+        if (nextIndex == 1)
         {
             racingDisplay.SetActive(true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("closer", true);
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
         }
-        else if (nextIndex == 3)
+        helpButton.interactable = true;
+        quitButton.interactable = true;
+        if (nextIndex == 3)
         {
             racingDisplay.SetActive(false);
             testingDisplay.SetActive(true);
