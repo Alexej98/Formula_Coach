@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public ButtonPresser script;
     [SerializeField] public float moveSpeed = 3f;
     [SerializeField] public float rotationSpeed = 2f;
-    private int nextIndex;
-
-    private void Start()
-    {
-        nextIndex = ButtonPresser.nextIndex;
-    }
 
     private void LateUpdate()
     {
-        nextIndex = ButtonPresser.nextIndex;
         if (Input.GetMouseButton(1))
         {
             RotateCamera();
@@ -32,7 +26,7 @@ public class CameraController : MonoBehaviour
         float pitch = Input.GetAxis("Mouse Y");
         Vector3 rotateValue = new Vector3(pitch, -yaw, 0) * rotationSpeed;
 
-        if (nextIndex == 0)
+        if (script.nextIndex == 0)
         {
             if (((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89))
             {
