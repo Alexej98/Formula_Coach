@@ -6,10 +6,6 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] public float moveSpeed = 3f;
     [SerializeField] public float rotationSpeed = 2f;
-    [SerializeField] private Transform target = null;
-    [SerializeField] private float scrollSpeed = 3.0f;
-    [SerializeField] private float MaxZoomDistance = 20.0f;
-    [SerializeField] private float MinZoomDistance = 4.0f;
     private int nextIndex;
 
     private void Start()

@@ -155,6 +155,12 @@ public class ButtonPresser : MonoBehaviour
         {
             animator.SetBool("pressed", true);
         }
+        if (nextIndex == 2)
+        {
+            Debug.Log("Alrighty");
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("middle", true);
+        }
         if (nextIndex == 9)
         {
             cameraAnimator.enabled = true;
@@ -175,7 +181,14 @@ public class ButtonPresser : MonoBehaviour
         ChangeWheelText();
         helpButton.interactable = false;
         quitButton.interactable = false;
-        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        if (nextIndex == 2)
+        {
+            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        }
         if (nextIndex == 1)
         {
             racingDisplay.SetActive(true);

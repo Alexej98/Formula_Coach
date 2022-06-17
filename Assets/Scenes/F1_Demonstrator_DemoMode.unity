@@ -1231,9 +1231,6 @@ MonoBehaviour:
   moveSpeed: 1
   rotationSpeed: 2
   target: {fileID: 9073202642798949279}
-  scrollSpeed: 3
-  MaxZoomDistance: 1
-  MinZoomDistance: 0.18
 --- !u!95 &280979225
 Animator:
   serializedVersion: 3

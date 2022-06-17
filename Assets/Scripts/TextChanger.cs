@@ -12,7 +12,7 @@ public class TextChanger : MonoBehaviour
 
     void Update()
     {
-        congratulationText.text = "Congratulations! You did it! You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";
+        congratulationText.text = "Congratulations! You're car is ready to take on the podium!\n You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";
         if (errorCounter == 0)
         {
             uiText.text = "You are a true professional. See you next season!";
