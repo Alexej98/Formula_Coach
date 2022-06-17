@@ -65,17 +65,18 @@ public class ButtonPresser : MonoBehaviour
     public static int helpCounter = 0;
     public static int errorCounter = 0;
 
+    Scene scene;
+
     // Start is called before the first frame update
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         radioButton = GameObject.FindGameObjectWithTag("RadioButton");
         confirmButton = GameObject.FindGameObjectWithTag("ConfirmButton");
         pitLimiterButton = GameObject.FindGameObjectWithTag("PitLimiterButton");
         drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
         neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
         drsButton = GameObject.FindGameObjectWithTag("DRSButton");
-        helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
-        helpButton.onClick.AddListener(HelpButtonClicked);
         quitButton = GameObject.FindGameObjectWithTag("QuitButtonDemo").GetComponent<Button>();
         button1 = GameObject.FindGameObjectWithTag("+1Button");
         quitButton.onClick.AddListener(QuitButtonClicked);
@@ -98,6 +99,12 @@ public class ButtonPresser : MonoBehaviour
 
         layerMask = LayerMask.GetMask("Selectable");
 
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
+            helpButton.onClick.AddListener(HelpButtonClicked);
+        }
+
 
     }
 
@@ -105,7 +112,10 @@ public class ButtonPresser : MonoBehaviour
     void Update()
     {
         UpdateSelection();
-        errorHelpText.text = errorCounter + "\n" + helpCounter;
+        if(scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            errorHelpText.text = errorCounter + "\n" + helpCounter;
+        }
         if (Input.GetMouseButtonDown(0) && nextIndex >= 0 && nextIndex < objectsInOrder.Length)
         {
 
@@ -157,7 +167,6 @@ public class ButtonPresser : MonoBehaviour
         }
         if (nextIndex == 2)
         {
-            Debug.Log("Alrighty");
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("middle", true);
         }
@@ -179,8 +188,11 @@ public class ButtonPresser : MonoBehaviour
             gbjCollider.enabled = false;
         }
         ChangeWheelText();
-        helpButton.interactable = false;
-        quitButton.interactable = false;
+        if(scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = false;
+            quitButton.interactable = false;
+        }
         if (nextIndex == 2)
         {
             yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
@@ -196,8 +208,11 @@ public class ButtonPresser : MonoBehaviour
             cameraAnimator.SetBool("closer", true);
             yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
         }
-        helpButton.interactable = true;
-        quitButton.interactable = true;
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = true;
+            quitButton.interactable = true;
+        }
         if (nextIndex == 3)
         {
             racingDisplay.SetActive(false);
@@ -245,7 +260,10 @@ public class ButtonPresser : MonoBehaviour
             
         }
         nextIndex++;
-        helpText.text = "";
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpText.text = "";
+        }
         if (nextIndex == objectsInOrder.Length)
         {
             SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
