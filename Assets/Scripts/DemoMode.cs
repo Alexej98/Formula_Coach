@@ -100,47 +100,55 @@ public class DemoMode : MonoBehaviour
 
         animator = Camera.main.GetComponent<Animator>();
         cameraAnimator = Camera.main.GetComponent<Animator>();
-        cameraAnimator.enabled = false;
         rearWingAnimator = rearWing.GetComponent<Animator>();
 
         layerMask = LayerMask.GetMask("Selectable");
 
+        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+        {
+            gbjCollider.enabled = false;
+        }
+
         backButton.onClick.AddListener(() =>
         {
-            cameraAnimator.enabled = false;
-            animator.enabled = false;
-            StopAllCoroutines();
-            coroutineStarted = false;
-
-            if(nextIndex > 0)
+            cameraAnimator.enabled = true;
+            animator.enabled = true;
+            if (!coroutineStarted)
             {
-                nextIndex--;
-                ChangeStepText();
-                //Change states of animations -> drs example works already
-                StartCoroutine(waitForSomeTime());
+                //Animation zurück zum anfang des Schritts davor
+                if (nextIndex > 0)
+                {
+                    nextIndex--;
+                    StartCoroutine(SkipSequenceBackward());
+                    ChangeStepText();
+                }
             }
+            else
+            {
+                //Anfang des aktuellen Schritts
+                StopAllCoroutines();
+                coroutineStarted = false;
+            }   
         });
 
         forwardButton.onClick.AddListener(() =>
         {
+            cameraAnimator.enabled = true;
+            animator.enabled = true;
             if (!coroutineStarted)
             {
-                coroutineStarted = true;
                 StartCoroutine(waitForSomeTime());
             } 
             else
             {
-                cameraAnimator.enabled = false;
-                animator.enabled = false;
                 StopAllCoroutines();
                 coroutineStarted = false;
 
-                
-                if (nextIndex < objectsInOrder.Length)
+                if (nextIndex != objectsInOrder.Length)
                 {
+                    SkipSequenceForward();
                     nextIndex++;
-                    ChangeStepText();
-                    //Change states of animations -> drs example works already
+                    ChangeStepText(); 
                     StartCoroutine(waitForSomeTime());
                 }
             }
@@ -156,29 +164,166 @@ public class DemoMode : MonoBehaviour
         {
             backButton.interactable = false;
         }
-        if (nextIndex == 1)
+        else 
         {
             backButton.interactable = true;
         }
+
         if (nextIndex == 10)
         {
             forwardButton.interactable = false;
         }
+        else
+        {
+            forwardButton.interactable = true;
+        }
     }
 
-    public IEnumerator waitForSomeTime()
+    void SkipSequenceForward()
     {
-        coroutineStarted = true;
+        cameraAnimator.SetFloat("speed", 1.0f);
+        animator.SetFloat("speed", 1.0f);
+
+        if (nextIndex == 0)
+        {
+            cameraAnimator.CrossFade("CameraAnimationToSeat", 0f, 0, 1f);
+        }
+        if(nextIndex == 1)
+        {
+            cameraAnimator.CrossFade("CameraAnimationToWheel", 0f, 0, 1f);
+            animator.CrossFade("WheelAnimation", 0f, 0, 1f);
+        }
+        if (nextIndex == 2)
+        {
+            cameraAnimator.CrossFade("CameraAnimationMiddleRotate", 0f, 0, 1f);
+            animator.CrossFade("MiddleRotate", 0f, 0, 1f);
+        }
+        if (nextIndex == 3)
+        {
+
+        }
+        if (nextIndex == 4)
+        {
+
+        }
+        if (nextIndex == 5)
+        {
+
+        }
+        if (nextIndex == 6)
+        {
+
+        }
+        if (nextIndex == 7)
+        {
+
+        }
+        if (nextIndex == 8)
+        {
+
+        }
+        if (nextIndex == 9)
+        {
+
+        }
+        if (nextIndex == 10)
+        {
+
+        }
+    }
+
+    public IEnumerator SkipSequenceBackward()
+    {
+        Debug.Log(nextIndex);
         if (nextIndex != 0)
         {
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
         }
-        animator.enabled = true;
-        /*if (nextIndex == 0 || nextIndex == 1)
+
+        coroutineStarted = true;
+        cameraAnimator.SetFloat("speed", -1.0f);
+        animator.SetFloat("speed", -1.0f);
+        
+
+        if (nextIndex == 0)
         {
-            //Statt hit zu übergeben einfach nextIndex 0 und 1 abfragen und jeweils deaktivieren
-            hit.collider.gameObject.GetComponent<Collider>().enabled = false;
-        }*/
+            cameraAnimator.SetBool("pressed", false);
+            cameraAnimator.CrossFade("CameraAnimationToSeat", 0f, 0, 1.0f);
+            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length);
+            cameraAnimator.Rebind();
+            cameraAnimator.Update(0f);
+        }
+
+        if (nextIndex == 1)
+        {
+            cameraAnimator.SetBool("closer", false);
+            cameraAnimator.CrossFade("CameraAnimationToWheel", 0f, 0, 1f);
+            animator.SetBool("pressed", false);
+            yield return new WaitForSeconds(1.0f);
+            animator.CrossFade("WheelAnimation", 0f, 0, 1f);
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 2)
+        {
+            animator.SetBool("pressed", false);
+            cameraAnimator.SetBool("middle", false);
+            cameraAnimator.CrossFade("CameraAnimationMiddleRotate", 0f, 0, 1f);
+            yield return new WaitForSeconds(1.25f);
+            animator.CrossFade("MiddleRotate", 0f, 0, 1f);
+            yield return new WaitForSeconds(3.75f);
+        }
+        if (nextIndex == 3)
+        {
+
+        }
+        if (nextIndex == 4)
+        {
+
+        }
+        if (nextIndex == 5)
+        {
+
+        }
+        if (nextIndex == 6)
+        {
+
+        }
+        if (nextIndex == 7)
+        {
+
+        }
+        if (nextIndex == 8)
+        {
+
+        }
+        if (nextIndex == 9)
+        {
+
+        }
+        if (nextIndex == 10)
+        {
+
+        }
+
+
+        animator.Update(0f);
+        cameraAnimator.Update(0f);
+        coroutineStarted = false;
+    }
+
+
+    public IEnumerator waitForSomeTime()
+    {
+        Debug.Log(nextIndex);
+        coroutineStarted = true;
+        cameraAnimator.SetFloat("speed", 1.0f);
+        animator.SetFloat("speed", 1.0f);
+        
+        if (nextIndex != 0)
+        {
+            animator = objectsInOrder[nextIndex].GetComponent<Animator>();
+        }
+        
         if (objectsInOrder[nextIndex] == radioButton)
         {
             audioSource.Play();
@@ -188,114 +333,91 @@ public class DemoMode : MonoBehaviour
             audioSource.clip = slurp;
             audioSource.Play();
         }
+
         if (nextIndex == 0)
         {
-            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("pressed", true);
+            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length);
         }
-        else
+        else if(nextIndex != 2)
         {
             animator.SetBool("pressed", true);
         }
+        if(nextIndex == 1)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+            racingDisplay.SetActive(true);
+            cameraAnimator.SetBool("closer", true);
+            yield return new WaitForSeconds(1f);
+        }
         if (nextIndex == 2)
         {
-            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("middle", true);
+            yield return new WaitForSeconds(1.3f);
+            animator.SetBool("pressed", true);
+            yield return new WaitForSeconds(3.7f);
+        }
+        if (nextIndex == 3)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 4)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 5)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 6)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 7)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
+        }
+        if (nextIndex == 8)
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         }
         if (nextIndex == 9)
         {
-            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", true);
             rearWingAnimator.SetBool("open", true);
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         }
         if (nextIndex == 10)
         {
-            cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", false);
             rearWingAnimator.SetBool("open", false);
             animator.SetBool("pressedAgain", true);
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         }
-        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
-        {
-            gbjCollider.enabled = false;
-        }
+
         ChangeWheelText();
-        if (nextIndex == 2)
-        {
-            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-            coroutineStarted = false;
-        }
-        else
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-            coroutineStarted = false;
-        }
-        if (nextIndex == 1)
-        {
-            racingDisplay.SetActive(true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("closer", true);
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
-            coroutineStarted = false;
-        }
+
         if (nextIndex == 3)
         {
             racingDisplay.SetActive(false);
             testingDisplay.SetActive(true);
         }
-        for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
-        {
-            var child = f1.transform.GetChild(childIndex);
-            try
-            {
-                if (nextIndex == 0)
-                {
-                    if (!child.tag.Equals("Car"))
-                    {
-                        child.GetComponent<Collider>().enabled = true;
-                    }
-                }
-                else
-                {
-                    for (int wheelChildIndex = 0; wheelChildIndex < steeringWheel.transform.childCount; wheelChildIndex++)
-                    {
-                        var wheelChild = steeringWheel.transform.GetChild(wheelChildIndex);
-                        try
-                        {
-                            wheelChild.GetComponent<Collider>().enabled = true;
-                        }
-                        catch
-                        {
-                            try
-                            {
-                                wheelChild.GetChild(0).GetComponent<Collider>().enabled = true;
-                            }
-                            catch
-                            {
-                                continue;
-                            };
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                continue;
-            }
-
-        }
         nextIndex++;
         ChangeStepText();
-        cameraAnimator.enabled = false;
-    }
-
-    void ChangeStepText()
-    {
         if (nextIndex == objectsInOrder.Length)
         {
             SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
         }
-        else
+
+        animator.Update(0f);
+        cameraAnimator.Update(0f);
+        coroutineStarted = false;
+
+    }
+
+    void ChangeStepText()
+    {
+        if(nextIndex != objectsInOrder.Length)
         {
             if (nextIndex == 1)
             {
