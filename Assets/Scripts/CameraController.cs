@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public ButtonPresser script;
     [SerializeField] public float moveSpeed = 3f;
     [SerializeField] public float rotationSpeed = 2f;
+    private int nextIndex;
+
+    private void Start()
+    {
+        nextIndex = ButtonPresser.nextIndex;
+    }
 
     private void LateUpdate()
     {
+        nextIndex = ButtonPresser.nextIndex;
         if (Input.GetMouseButton(1))
         {
             RotateCamera();
@@ -26,7 +32,7 @@ public class CameraController : MonoBehaviour
         float pitch = Input.GetAxis("Mouse Y");
         Vector3 rotateValue = new Vector3(pitch, -yaw, 0) * rotationSpeed;
 
-        if (script.nextIndex == 0)
+        if (nextIndex == 0)
         {
             if (((Camera.main.transform.eulerAngles.x - rotateValue.x) > 271 || (Camera.main.transform.eulerAngles.x - rotateValue.x) < 89))
             {
@@ -46,14 +52,11 @@ public class CameraController : MonoBehaviour
     /*private void Zoom()
     {
         float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-
         #region Limit Zoom Distance
         float nextZoomDistance = Vector3.Distance(target.position, transform.position) - ScrollAmount;
-
         if (nextZoomDistance >= MaxZoomDistance || nextZoomDistance <= MinZoomDistance)
             return;
         #endregion
-
         transform.Translate(new Vector3(0, 0, ScrollAmount*0.05f), Space.Self);
     }*/
 }

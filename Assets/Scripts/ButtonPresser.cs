@@ -59,7 +59,7 @@ public class ButtonPresser : MonoBehaviour
     private Material selectedGameObjectMaterial;
     public GameObject SelectedGameObject => selectedGameObject;
 
-    public int nextIndex = 0;
+    public static int nextIndex = 0;
     private bool[] helpButtonPressed = { false, false, false, false, false, false, false, false, false, false, false };
 
     public static int helpCounter = 0;
@@ -112,7 +112,7 @@ public class ButtonPresser : MonoBehaviour
     void Update()
     {
         UpdateSelection();
-        if(scene.name == "F1_Demonstrator_TutorialMode")
+        if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             errorHelpText.text = errorCounter + "\n" + helpCounter;
         }
@@ -137,7 +137,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
-    public IEnumerator waitForSomeTime(RaycastHit hit)
+    IEnumerator waitForSomeTime(RaycastHit hit)
     {
         if (nextIndex != 0)
         {
@@ -145,14 +145,13 @@ public class ButtonPresser : MonoBehaviour
         }
         if (nextIndex == 0 || nextIndex == 1)
         {
-            //Statt hit zu übergeben einfach nextIndex 0 und 1 abfragen und jeweils deaktivieren
             hit.collider.gameObject.GetComponent<Collider>().enabled = false;
         }
         if (objectsInOrder[nextIndex] == radioButton)
         {
             audioSource.Play();
         }
-        else if(objectsInOrder[nextIndex] == drinkButton)
+        else if (objectsInOrder[nextIndex] == drinkButton)
         {
             audioSource.clip = slurp;
             audioSource.Play();
@@ -184,12 +183,12 @@ public class ButtonPresser : MonoBehaviour
             rearWingAnimator.SetBool("open", false);
             animator.SetBool("pressedAgain", true);
         }
-        foreach(Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
         {
             gbjCollider.enabled = false;
         }
         ChangeWheelText();
-        if(scene.name == "F1_Demonstrator_TutorialMode")
+        if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             helpButton.interactable = false;
             quitButton.interactable = false;
@@ -219,7 +218,7 @@ public class ButtonPresser : MonoBehaviour
             racingDisplay.SetActive(false);
             testingDisplay.SetActive(true);
         }
-        for (int childIndex=0; childIndex<f1.transform.childCount; childIndex++)
+        for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
         {
             var child = f1.transform.GetChild(childIndex);
             try
@@ -233,7 +232,7 @@ public class ButtonPresser : MonoBehaviour
                 }
                 else
                 {
-                    for(int wheelChildIndex=0; wheelChildIndex<steeringWheel.transform.childCount; wheelChildIndex++)
+                    for (int wheelChildIndex = 0; wheelChildIndex < steeringWheel.transform.childCount; wheelChildIndex++)
                     {
                         var wheelChild = steeringWheel.transform.GetChild(wheelChildIndex);
                         try
@@ -246,7 +245,7 @@ public class ButtonPresser : MonoBehaviour
                             {
                                 wheelChild.GetChild(0).GetComponent<Collider>().enabled = true;
                             }
-                            catch 
+                            catch
                             {
                                 continue;
                             };
@@ -258,9 +257,8 @@ public class ButtonPresser : MonoBehaviour
             {
                 continue;
             }
-            
+
         }
-        Debug.Log(nextIndex);
         nextIndex++;
         if (scene.name == "F1_Demonstrator_TutorialMode")
         {
@@ -278,16 +276,16 @@ public class ButtonPresser : MonoBehaviour
             }
             else if (nextIndex == 2)
             {
-                uiText.text = "Step 3: Press the middle rotation knob!";
-                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
+                uiText.text = "Step 3: Press the Middle Rotation Knob!";
+                uiTextSmall.text = "Here you can activate the Display Mode to change between the displays";
             }
             else if (nextIndex == 6)
             {
-                uiText.text = "Step 7: Press the pit limiter button!";
+                uiText.text = "Step 7: Press the Pit Limiter Button!";
             }
             else if (nextIndex == 9 || nextIndex == 10)
             {
-                uiText.text = "Step " + (nextIndex+1) + ": Press the DRS-button!";
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS-Button!";
             }
             else
             {
@@ -295,11 +293,11 @@ public class ButtonPresser : MonoBehaviour
             }
             if (nextIndex == 3)
             {
-                uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
+                uiTextSmall.text = "While checking the individual information of the car, this button helps to change between the views on the dislpay";
             }
             if (nextIndex == 4)
             {
-                uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
+                uiTextSmall.text = "By pressing it, you can connect with your team engineer";
             }
             else if (nextIndex == 5)
             {
@@ -307,27 +305,28 @@ public class ButtonPresser : MonoBehaviour
             }
             else if (nextIndex == 6)
             {
-                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
+                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies this limit to the current speed";
             }
             else if (nextIndex == 7)
             {
-                uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
+                uiTextSmall.text = "When the car leaves the pit lane, this button lifts the limit and the driver can start to speed up";
             }
             if (nextIndex == 8)
             {
-                uiTextSmall.text = "This button activates the water supply";
+                uiTextSmall.text = "This button activates the liquid supply";
             }
+
             else if (nextIndex == 8)
             {
-                uiTextSmall.text = "It's useful to skip multiple views at once or change car settings";
+                uiTextSmall.text = "It's useful to skip multiple views at once";
             }
             else if (nextIndex == 9)
             {
-                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
+                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and is very useful for overtaking cars during the race";
             }
             else if (nextIndex == 10)
             {
-                uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
+                uiTextSmall.text = "By pressing the button again, the rear wing gets closed";
             }
         }
         cameraAnimator.enabled = false;
@@ -335,12 +334,12 @@ public class ButtonPresser : MonoBehaviour
 
     void ChangeWheelText()
     {
-        if(nextIndex == 4)
+        if (nextIndex == 4)
         {
             radioOnOff.text = "TESTED";
             radioOnOff.color = Color.green;
         }
-        else if(nextIndex == 5)
+        else if (nextIndex == 5)
         {
             pitConfirmed.text = "TESTED";
             pitConfirmed.color = Color.green;
@@ -385,7 +384,7 @@ public class ButtonPresser : MonoBehaviour
         {
             case 0:
                 {
-                    helpText.text = "It's right in front of you";
+                    helpText.text = "It's right in front of you!";
                     if (!helpButtonPressed[0])
                     {
                         helpCounter++;
@@ -395,7 +394,7 @@ public class ButtonPresser : MonoBehaviour
                 }
             case 1:
                 {
-                    helpText.text = "It's on the car";
+                    helpText.text = "It's on the car!";
                     if (!helpButtonPressed[1])
                     {
                         helpCounter++;
@@ -416,7 +415,7 @@ public class ButtonPresser : MonoBehaviour
 
             case 3:
                 {
-                    helpText.text = "It's the one to the left of the pit limiter button";
+                    helpText.text = "It's the one to the left of the Pit Limiter Button";
                     if (!helpButtonPressed[7])
                     {
                         helpCounter++;
@@ -426,7 +425,7 @@ public class ButtonPresser : MonoBehaviour
                 }
             case 4:
                 {
-                    helpText.text = "It's just left from the main display";
+                    helpText.text = "It's just left from the main display!";
                     if (!helpButtonPressed[2])
                     {
                         helpCounter++;
@@ -477,7 +476,7 @@ public class ButtonPresser : MonoBehaviour
 
             case 9:
                 {
-                    helpText.text = "It's the one to the left of the +1-button";
+                    helpText.text = "It's the one to the left of the +1-Button";
                     if (!helpButtonPressed[8])
                     {
                         helpCounter++;
@@ -550,7 +549,7 @@ public class ButtonPresser : MonoBehaviour
             }
         }
         renderer.material = highlightMaterial;
-        
+
     }
 
     private void DeSelect()
@@ -558,14 +557,10 @@ public class ButtonPresser : MonoBehaviour
         if (nextIndex <= 1)
         {
             selectedObject = 0;
-            foreach(GameObject gameObj in carObjects)
+            foreach (GameObject gameObj in carObjects)
             {
                 var renderer = gameObj.GetComponent<Renderer>();
-                if(materialOriginalsList[selectedObject] != null)
-                {
-                    renderer.sharedMaterials = materialOriginalsList[selectedObject];
-                }
-                
+                renderer.sharedMaterials = materialOriginalsList[selectedObject];
                 selectedObject++;
             }
 
@@ -578,5 +573,4 @@ public class ButtonPresser : MonoBehaviour
         return animator.GetCurrentAnimatorStateInfo(0).length >
                animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
     }
-   
 }
