@@ -161,6 +161,12 @@ public class ButtonPresser : MonoBehaviour
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("pressed", true);
         }
+        else if(nextIndex == 1)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("closer", true);
+        }
         else
         {
             animator.SetBool("pressed", true);
@@ -204,8 +210,6 @@ public class ButtonPresser : MonoBehaviour
         if (nextIndex == 1)
         {
             racingDisplay.SetActive(true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("closer", true);
             yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
         }
         if (scene.name == "F1_Demonstrator_TutorialMode")

@@ -135,26 +135,22 @@ public class DemoMode : MonoBehaviour
         {
             cameraAnimator.enabled = true;
             animator.enabled = true;
-            if (!coroutineStarted)
-            {
-                StartCoroutine(waitForSomeTime());
-            } 
-            else
-            {
-                StopAllCoroutines();
-                coroutineStarted = false;
-
-                if (nextIndex != objectsInOrder.Length)
-                {
-                    SkipSequenceForward();
-                    nextIndex++;
-                    ChangeStepText(); 
-                    StartCoroutine(waitForSomeTime());
-                }
-            }
+            LoopAnimation();
         });
+    }
 
-        
+    void LoopAnimation()
+    {
+        if (nextIndex == 0)
+        {
+            cameraAnimator.Play("CameraAnimationToSeat");
+            Debug.Log(cameraAnimator.runtimeAnimatorController.animationClips[0]);
+            cameraAnimator.runtimeAnimatorController.animationClips[0].wrapMode = WrapMode.Loop;
+        }
+        else if (nextIndex != 0)
+        {
+            animator = objectsInOrder[nextIndex].GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -310,6 +306,8 @@ public class DemoMode : MonoBehaviour
         cameraAnimator.Update(0f);
         coroutineStarted = false;
     }
+
+
 
 
     public IEnumerator waitForSomeTime()
