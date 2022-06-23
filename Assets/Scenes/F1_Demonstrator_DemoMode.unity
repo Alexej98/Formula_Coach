@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1132,13 +1132,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280979218}
-  m_LocalRotation: {x: 0.0861746, y: 0.70183617, z: -0.0861746, w: 0.70183617}
+  m_LocalRotation: {x: 0.08588059, y: 0.70187217, z: -0.08646858, w: 0.7017999}
   m_LocalPosition: {x: -6, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 14, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 14, y: 90, z: -0.048}
 --- !u!114 &280979222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1217,6 @@ MonoBehaviour:
   cameraAnimator: {fileID: 0}
   rearWingAnimator: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 2a6ac87e3f5cdb44abb79c9b2920eb9d, type: 2}
-  nextIndex: 0
 --- !u!114 &280979224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1230,7 +1229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ab3b3d9a756954f8d00aa512cc5adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script: {fileID: 0}
   moveSpeed: 1
   rotationSpeed: 2
 --- !u!95 &280979225
@@ -4634,7 +4632,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 280979220}
-  m_PlaneDistance: 0.08
+  m_PlaneDistance: 0.065
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -8360,8 +8358,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8548303885404137765}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 4.023, z: -2.09}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.35, y: 3.538, z: -4.053}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4593854844496032525}
@@ -8391,7 +8389,7 @@ Transform:
   - {fileID: 399181722}
   m_Father: {fileID: 543450652458229918}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &9095050281496213996
 MeshFilter:
   m_ObjectHideFlags: 0
