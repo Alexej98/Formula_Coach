@@ -138,6 +138,7 @@ public class DemoMode : MonoBehaviour
 
     void LoopAnimation()
     {
+        ChangeStepText();
         if (nextIndex != 0)
         { 
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
@@ -151,11 +152,31 @@ public class DemoMode : MonoBehaviour
             animator.Play("DemoWheelAnimation");
             cameraAnimator.Play("DemoCameraAnimationToWheel");
         }
+        else if (nextIndex == 2)
+        {
+            cameraAnimator.Play("DemoCameraToMiddleRotate");
+            animator.Play("DemoMiddleRotate");            
+        }
+        else if (nextIndex == 3)
+        {
+
+        }
     }
 
     void StopAnimation()
     {
-        animator.Play("New State");
+        if(nextIndex == 1)
+        {
+            animator.Play("DemoWheelAnimationEnd");
+        }
+        else if (nextIndex == 2)
+        {
+            animator.Play("DemoMiddleRotateEnd");
+        }
+        else
+        {
+            animator.Play("New State");
+        }
     }
 
     // Update is called once per frame
@@ -179,141 +200,6 @@ public class DemoMode : MonoBehaviour
             forwardButton.interactable = true;
         }
     }
-
-    void SkipSequenceForward()
-    {
-        cameraAnimator.SetFloat("speed", 1.0f);
-        animator.SetFloat("speed", 1.0f);
-
-        if (nextIndex == 0)
-        {
-            cameraAnimator.CrossFade("DemoCameraAnimationToSeat", 0f, 0, 1f);
-        }
-        if(nextIndex == 1)
-        {
-            cameraAnimator.CrossFade("DemoCameraAnimationToWheel", 0f, 0, 1f);
-            animator.CrossFade("DemoWheelAnimation", 0f, 0, 1f);
-        }
-        if (nextIndex == 2)
-        {
-            cameraAnimator.CrossFade("CameraAnimationMiddleRotate", 0f, 0, 1f);
-            animator.CrossFade("MiddleRotate", 0f, 0, 1f);
-        }
-        if (nextIndex == 3)
-        {
-
-        }
-        if (nextIndex == 4)
-        {
-
-        }
-        if (nextIndex == 5)
-        {
-
-        }
-        if (nextIndex == 6)
-        {
-
-        }
-        if (nextIndex == 7)
-        {
-
-        }
-        if (nextIndex == 8)
-        {
-
-        }
-        if (nextIndex == 9)
-        {
-
-        }
-        if (nextIndex == 10)
-        {
-
-        }
-    }
-
-    public IEnumerator SkipSequenceBackward()
-    {
-        Debug.Log(nextIndex);
-        if (nextIndex != 0)
-        {
-            animator = objectsInOrder[nextIndex].GetComponent<Animator>();
-        }
-
-        coroutineStarted = true;
-        cameraAnimator.SetFloat("speed", -1.0f);
-        animator.SetFloat("speed", -1.0f);
-        
-
-        if (nextIndex == 0)
-        {
-            cameraAnimator.SetBool("pressed", false);
-            cameraAnimator.CrossFade("CameraAnimationToSeat", 0f, 0, 1.0f);
-            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length);
-            cameraAnimator.Rebind();
-            cameraAnimator.Update(0f);
-        }
-
-        if (nextIndex == 1)
-        {
-            cameraAnimator.SetBool("closer", false);
-            cameraAnimator.CrossFade("CameraAnimationToWheel", 0f, 0, 1f);
-            animator.SetBool("pressed", false);
-            yield return new WaitForSeconds(1.0f);
-            animator.CrossFade("WheelAnimation", 0f, 0, 1f);
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 2)
-        {
-            animator.SetBool("pressed", false);
-            cameraAnimator.SetBool("middle", false);
-            cameraAnimator.CrossFade("CameraAnimationMiddleRotate", 0f, 0, 1f);
-            yield return new WaitForSeconds(1.25f);
-            animator.CrossFade("MiddleRotate", 0f, 0, 1f);
-            yield return new WaitForSeconds(3.75f);
-        }
-        if (nextIndex == 3)
-        {
-
-        }
-        if (nextIndex == 4)
-        {
-
-        }
-        if (nextIndex == 5)
-        {
-
-        }
-        if (nextIndex == 6)
-        {
-
-        }
-        if (nextIndex == 7)
-        {
-
-        }
-        if (nextIndex == 8)
-        {
-
-        }
-        if (nextIndex == 9)
-        {
-
-        }
-        if (nextIndex == 10)
-        {
-
-        }
-
-
-        animator.Update(0f);
-        cameraAnimator.Update(0f);
-        coroutineStarted = false;
-    }
-
-
-
 
     public IEnumerator waitForSomeTime()
     {
@@ -425,6 +311,7 @@ public class DemoMode : MonoBehaviour
             if (nextIndex == 1)
             {
                 uiText.text = "Step 2: Press the Steering Wheel!";
+                uiTextSmall.text = "";
             }
             else if (nextIndex == 2)
             {

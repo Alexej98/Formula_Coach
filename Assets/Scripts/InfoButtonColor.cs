@@ -18,9 +18,11 @@ public class InfoButtonColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uiTextSmall.enabled = false;
         buttonColor = infoButton.colors;
         originalColor = buttonColor.selectedColor;
     }
+
     public void ChangeInfoState()
     {
         infoButtonOn = !infoButtonOn;
