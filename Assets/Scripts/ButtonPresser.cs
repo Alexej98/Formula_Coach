@@ -22,6 +22,7 @@ public class ButtonPresser : MonoBehaviour
     GameObject f1;
     Button helpButton;
     Button quitButton;
+    [SerializeField] Button infoButton;
 
     GameObject racingDisplay;
     GameObject testingDisplay;
@@ -45,6 +46,7 @@ public class ButtonPresser : MonoBehaviour
     [SerializeField] TextMeshProUGUI neutral;
     [SerializeField] TextMeshProUGUI drinkActive;
     [SerializeField] TextMeshProUGUI drsActive;
+    [SerializeField] TextMeshProUGUI infoButtonText;
     [SerializeField] public GameObject[] objectsInOrder = null;
 
     [SerializeField] AudioClip slurp;
@@ -64,6 +66,8 @@ public class ButtonPresser : MonoBehaviour
 
     public static int helpCounter = 0;
     public static int errorCounter = 0;
+
+    public bool infoButtonOn = false;
 
     Scene scene;
 
@@ -105,7 +109,7 @@ public class ButtonPresser : MonoBehaviour
             helpButton.onClick.AddListener(HelpButtonClicked);
         }
 
-
+        uiTextSmall.enabled = false;
     }
 
     // Update is called once per frame
@@ -199,6 +203,7 @@ public class ButtonPresser : MonoBehaviour
             helpButton.interactable = false;
             quitButton.interactable = false;
         }
+        infoButton.interactable = false;
         if (nextIndex == 2)
         {
             yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
@@ -217,6 +222,7 @@ public class ButtonPresser : MonoBehaviour
             helpButton.interactable = true;
             quitButton.interactable = true;
         }
+        infoButton.interactable = true;
         if (nextIndex == 3)
         {
             racingDisplay.SetActive(false);
@@ -498,6 +504,22 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
+        }
+    }
+
+    public void ChangeInfoState()
+    {
+        infoButtonOn = !infoButtonOn;
+        uiTextSmall.enabled = !uiTextSmall.enabled;
+        if (infoButtonOn)
+        {
+            infoButtonText.text = "Info On";
+            infoButtonText.color = Color.green;
+        }
+        else
+        {
+            infoButtonText.text = "Info Off";
+            infoButtonText.color = Color.red;
         }
     }
     private void UpdateSelection()
