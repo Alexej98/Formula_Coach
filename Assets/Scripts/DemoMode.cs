@@ -159,7 +159,8 @@ public class DemoMode : MonoBehaviour
         }
         else if (nextIndex == 3)
         {
-
+            cameraAnimator.Play("DemoCameraToMiddleRotate");
+            animator.Play("DemoMiddleRotate");
         }
     }
 
