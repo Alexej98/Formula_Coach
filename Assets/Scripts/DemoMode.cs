@@ -113,44 +113,49 @@ public class DemoMode : MonoBehaviour
         {
             cameraAnimator.enabled = true;
             animator.enabled = true;
-            if (!coroutineStarted)
+            if (nextIndex > 0)
             {
-                //Animation zurück zum anfang des Schritts davor
-                if (nextIndex > 0)
-                {
-                    nextIndex--;
-                    StartCoroutine(SkipSequenceBackward());
-                    ChangeStepText();
-                }
+                StopAnimation();
+                nextIndex--;
             }
-            else
-            {
-                //Anfang des aktuellen Schritts
-                StopAllCoroutines();
-                coroutineStarted = false;
-            }   
+            LoopAnimation();
         });
 
         forwardButton.onClick.AddListener(() =>
         {
             cameraAnimator.enabled = true;
             animator.enabled = true;
+            if (nextIndex < 11)
+            {
+                StopAnimation();
+                nextIndex++;
+            }
             LoopAnimation();
         });
+
+        LoopAnimation();
     }
 
     void LoopAnimation()
     {
-        if (nextIndex == 0)
-        {
-            cameraAnimator.Play("CameraAnimationToSeat");
-            Debug.Log(cameraAnimator.runtimeAnimatorController.animationClips[0]);
-            cameraAnimator.runtimeAnimatorController.animationClips[0].wrapMode = WrapMode.Loop;
-        }
-        else if (nextIndex != 0)
-        {
+        if (nextIndex != 0)
+        { 
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
         }
+        if (nextIndex == 0)
+        {
+            cameraAnimator.Play("DemoCameraAnimationToSeat");
+        }
+        else if (nextIndex == 1)
+        {
+            animator.Play("DemoWheelAnimation");
+            cameraAnimator.Play("DemoCameraAnimationToWheel");
+        }
+    }
+
+    void StopAnimation()
+    {
+        animator.Play("New State");
     }
 
     // Update is called once per frame
@@ -182,12 +187,12 @@ public class DemoMode : MonoBehaviour
 
         if (nextIndex == 0)
         {
-            cameraAnimator.CrossFade("CameraAnimationToSeat", 0f, 0, 1f);
+            cameraAnimator.CrossFade("DemoCameraAnimationToSeat", 0f, 0, 1f);
         }
         if(nextIndex == 1)
         {
-            cameraAnimator.CrossFade("CameraAnimationToWheel", 0f, 0, 1f);
-            animator.CrossFade("WheelAnimation", 0f, 0, 1f);
+            cameraAnimator.CrossFade("DemoCameraAnimationToWheel", 0f, 0, 1f);
+            animator.CrossFade("DemoWheelAnimation", 0f, 0, 1f);
         }
         if (nextIndex == 2)
         {

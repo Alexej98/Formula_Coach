@@ -46,7 +46,6 @@ public class ButtonPresser : MonoBehaviour
     [SerializeField] TextMeshProUGUI neutral;
     [SerializeField] TextMeshProUGUI drinkActive;
     [SerializeField] TextMeshProUGUI drsActive;
-    [SerializeField] TextMeshProUGUI infoButtonText;
     [SerializeField] public GameObject[] objectsInOrder = null;
 
     [SerializeField] AudioClip slurp;
@@ -66,8 +65,6 @@ public class ButtonPresser : MonoBehaviour
 
     public static int helpCounter = 0;
     public static int errorCounter = 0;
-
-    public bool infoButtonOn = false;
 
     Scene scene;
 
@@ -507,21 +504,6 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
-    public void ChangeInfoState()
-    {
-        infoButtonOn = !infoButtonOn;
-        uiTextSmall.enabled = !uiTextSmall.enabled;
-        if (infoButtonOn)
-        {
-            infoButtonText.text = "Info On";
-            infoButtonText.color = Color.green;
-        }
-        else
-        {
-            infoButtonText.text = "Info Off";
-            infoButtonText.color = Color.red;
-        }
-    }
     private void UpdateSelection()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
