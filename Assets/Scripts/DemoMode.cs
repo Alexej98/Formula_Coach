@@ -175,6 +175,35 @@ public class DemoMode : MonoBehaviour
             cameraAnimator.Play("DemoCameraAnimationConfirmButton");
             animator.Play("DemoConfirmButton");
         }
+        else if (nextIndex == 6)
+        {
+            cameraAnimator.Play("DemoCameraAnimationPitLimiterButton");
+            animator.Play("DemoPitLimiterButton");
+        }
+        else if (nextIndex == 7)
+        {
+            cameraAnimator.Play("DemoCameraAnimationNeutralButton");
+            animator.Play("DemoNeutralButton");
+        }
+        else if (nextIndex == 8)
+        {
+            cameraAnimator.Play("DemoCameraAnimationDrinkButton");
+            animator.Play("DemoDrinkButton");
+            audioSource.clip = slurp;
+            audioSource.Play();
+        }
+        else if (nextIndex == 9)
+        {
+            cameraAnimator.Play("DemoCameraAnimationDRSButton");
+            animator.Play("DemoDRSButton");
+            rearWingAnimator.Play("DemoRearWingAnimation");
+        }
+        else if (nextIndex == 10)
+        {
+            cameraAnimator.Play("DemoCameraAnimationDRSButtonAgain");
+            animator.Play("DemoDRSButtonAgain");
+            rearWingAnimator.Play("DemoRearWingAnimationBack");
+        }
     }
 
     void StopAnimation()
@@ -192,7 +221,7 @@ public class DemoMode : MonoBehaviour
             animator.Play("New State");
         }
 
-        if (nextIndex == 4)
+        if (nextIndex == 4 || nextIndex == 8)
         {
             audioSource.Stop();
         }
