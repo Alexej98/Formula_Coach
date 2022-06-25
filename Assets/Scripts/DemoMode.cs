@@ -170,10 +170,10 @@ public class DemoMode : MonoBehaviour
             animator.Play("DemoRadioButton");
             audioSource.Play();
         }
-        else if (nextIndex == 4)
+        else if (nextIndex == 5)
         {
-            cameraAnimator.Play("CameraAnimationRadioButton");
-            animator.Play("DemoRadioButton");
+            cameraAnimator.Play("CameraAnimationRadioConfirm");
+            animator.Play("DemoConfirmButton");
         }
     }
 
