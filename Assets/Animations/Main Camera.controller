@@ -54,32 +54,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-7541707548866606181
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: CameraAnimationConfirmButton
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d2555cd4b9cf7f247aab54d2b97a34d5, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &-6908106524106237735
 AnimatorState:
   serializedVersion: 6
@@ -190,7 +164,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CameraAnimationOneButton
+  m_Name: DemoCameraAnimationOneButton
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -472,7 +446,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CameraAnimationRadioConfirm
+  m_Name: DemoCameraAnimationConfirmButton
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -753,47 +727,44 @@ AnimatorStateMachine:
     m_State: {fileID: 5668459091951224936}
     m_Position: {x: 840, y: 440, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -7541707548866606181}
-    m_Position: {x: 1230, y: 410, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -5685641681258163001}
     m_Position: {x: 840, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8139745158055759127}
-    m_Position: {x: 1220, y: 600, z: 0}
+    m_Position: {x: 1100, y: 1510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9016953492132783797}
-    m_Position: {x: 680, y: 820, z: 0}
+    m_Position: {x: 870, y: 1140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1872116516470007147}
-    m_Position: {x: 880, y: 740, z: 0}
+    m_Position: {x: 870, y: 1060, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6028127373153771041}
-    m_Position: {x: 750, y: 950, z: 0}
+    m_Position: {x: 870, y: 1220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1326929273319203648}
     m_Position: {x: 840, y: 520, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3723744434232945894}
-    m_Position: {x: 880, y: 690, z: 0}
+    m_Position: {x: 870, y: 1000, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1534591798069163821}
-    m_Position: {x: 850, y: 1150, z: 0}
+    m_Position: {x: 870, y: 1290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2515881311858639946}
-    m_Position: {x: 890, y: 1210, z: 0}
+    m_Position: {x: 870, y: 1450, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6392498162803918077}
-    m_Position: {x: 920, y: 1280, z: 0}
+    m_Position: {x: 870, y: 1520, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5881480471433127370}
-    m_Position: {x: 960, y: 1340, z: 0}
+    m_Position: {x: 870, y: 1590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3287984446040269195}
-    m_Position: {x: 830, y: 650, z: 0}
+    m_Position: {x: 870, y: 930, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2491287586946477267}
-    m_Position: {x: 1030, y: 1470, z: 0}
+    m_Position: {x: 870, y: 1370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3315956485305530978}
     m_Position: {x: 840, y: 70, z: 0}
@@ -846,7 +817,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CameraAnimationRadioButton
+  m_Name: DemoCameraAnimationRadioButton
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

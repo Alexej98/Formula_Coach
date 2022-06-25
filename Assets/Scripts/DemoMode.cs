@@ -161,18 +161,18 @@ public class DemoMode : MonoBehaviour
         }
         else if (nextIndex == 3)
         {
-            cameraAnimator.Play("CameraAnimationOneButton");
+            cameraAnimator.Play("DemoCameraAnimationOneButton");
             animator.Play("Demo+1Button");
         }
         else if (nextIndex == 4)
         {
-            cameraAnimator.Play("CameraAnimationRadioButton");
+            cameraAnimator.Play("DemoCameraAnimationRadioButton");
             animator.Play("DemoRadioButton");
             audioSource.Play();
         }
         else if (nextIndex == 5)
         {
-            cameraAnimator.Play("CameraAnimationRadioConfirm");
+            cameraAnimator.Play("DemoCameraAnimationConfirmButton");
             animator.Play("DemoConfirmButton");
         }
     }
