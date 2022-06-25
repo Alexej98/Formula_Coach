@@ -138,11 +138,13 @@ public class DemoMode : MonoBehaviour
 
     void LoopAnimation()
     {
+        Debug.Log(nextIndex);
         ChangeStepText();
         if (nextIndex != 0)
         { 
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
         }
+
         if (nextIndex == 0)
         {
             cameraAnimator.Play("DemoCameraAnimationToSeat");
@@ -159,8 +161,19 @@ public class DemoMode : MonoBehaviour
         }
         else if (nextIndex == 3)
         {
-            cameraAnimator.Play("DemoCameraToMiddleRotate");
-            animator.Play("DemoMiddleRotate");
+            cameraAnimator.Play("CameraAnimationOneButton");
+            animator.Play("Demo+1Button");
+        }
+        else if (nextIndex == 4)
+        {
+            cameraAnimator.Play("CameraAnimationRadioButton");
+            animator.Play("DemoRadioButton");
+            audioSource.Play();
+        }
+        else if (nextIndex == 4)
+        {
+            cameraAnimator.Play("CameraAnimationRadioButton");
+            animator.Play("DemoRadioButton");
         }
     }
 
@@ -177,6 +190,11 @@ public class DemoMode : MonoBehaviour
         else
         {
             animator.Play("New State");
+        }
+
+        if (nextIndex == 4)
+        {
+            audioSource.Stop();
         }
     }
 
