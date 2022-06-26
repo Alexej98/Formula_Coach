@@ -53,6 +53,7 @@ public class DemoMode : MonoBehaviour
     [SerializeField] public GameObject[] objectsInOrder = null;
 
     [SerializeField] AudioClip slurp;
+    [SerializeField] AudioClip box;
     [SerializeField] AudioClip buttonClick;
 
     public Animator animator;
@@ -138,8 +139,11 @@ public class DemoMode : MonoBehaviour
 
     void LoopAnimation()
     {
-        Debug.Log(nextIndex);
         ChangeStepText();
+        if (nextIndex == 0)
+        {
+            animator.Play("New State");
+        }
         if (nextIndex != 0)
         { 
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
@@ -168,6 +172,7 @@ public class DemoMode : MonoBehaviour
         {
             cameraAnimator.Play("DemoCameraAnimationRadioButton");
             animator.Play("DemoRadioButton");
+            audioSource.clip = box;
             audioSource.Play();
         }
         else if (nextIndex == 5)
@@ -356,7 +361,12 @@ public class DemoMode : MonoBehaviour
     {
         if(nextIndex != objectsInOrder.Length)
         {
-            if (nextIndex == 1)
+            if (nextIndex == 0)
+            {
+                uiText.text = "Step 1: Press the car to get in!";
+                uiTextSmall.text = "";
+            }
+            else if (nextIndex == 1)
             {
                 uiText.text = "Step 2: Press the Steering Wheel!";
                 uiTextSmall.text = "";

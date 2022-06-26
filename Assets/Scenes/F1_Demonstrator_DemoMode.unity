@@ -1489,7 +1489,8 @@ MonoBehaviour:
   - {fileID: 5805412358162293146}
   - {fileID: 3754475651508565998}
   - {fileID: 3754475651508565998}
-  slurp: {fileID: 8300000, guid: d053e4eb4e68a374b901b31e5ce888c8, type: 3}
+  slurp: {fileID: 8300000, guid: 6ee52ff562929dd40b84cce3721ba77f, type: 3}
+  box: {fileID: 8300000, guid: 8b86d601d29283547b9d4b37f5992562, type: 3}
   buttonClick: {fileID: 8300000, guid: 642fe94026b334949a2295a638e1267b, type: 3}
   animator: {fileID: 0}
   cameraAnimator: {fileID: 0}
@@ -4342,7 +4343,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dc92796ace60fd74fa7eef3d775dcc56, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce78087a69803ad40a06bc3b6f1971ad, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -8818,8 +8819,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8548303885404137765}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.35277, y: 3.538, z: -4.053}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.35277, y: 4.023, z: -2.09}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4593854844496032525}
@@ -8849,7 +8850,7 @@ Transform:
   - {fileID: 399181722}
   m_Father: {fileID: 543450652458229918}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9095050281496213996
 MeshFilter:
   m_ObjectHideFlags: 0

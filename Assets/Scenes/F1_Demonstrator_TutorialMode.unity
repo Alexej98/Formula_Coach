@@ -1199,7 +1199,6 @@ MonoBehaviour:
   neutral: {fileID: 118439378}
   drinkActive: {fileID: 1159592048}
   drsActive: {fileID: 452354929}
-  infoButtonText: {fileID: 1763396983}
   objectsInOrder:
   - {fileID: 3602823667228592893}
   - {fileID: 8548303885404137765}
@@ -1218,7 +1217,6 @@ MonoBehaviour:
   cameraAnimator: {fileID: 0}
   rearWingAnimator: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 2a6ac87e3f5cdb44abb79c9b2920eb9d, type: 2}
-  infoButtonOn: 0
 --- !u!114 &280979224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,7 +4139,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dc92796ace60fd74fa7eef3d775dcc56, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce78087a69803ad40a06bc3b6f1971ad, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
