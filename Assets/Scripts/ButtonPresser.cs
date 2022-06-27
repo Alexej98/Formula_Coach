@@ -65,6 +65,8 @@ public class ButtonPresser : MonoBehaviour
 
     public static int helpCounter = 0;
     public static int errorCounter = 0;
+    public static int finalTips = 0;
+    public static int finalErrors = 0;
 
     Scene scene;
 
@@ -273,6 +275,10 @@ public class ButtonPresser : MonoBehaviour
         }
         if (nextIndex == objectsInOrder.Length)
         {
+            finalTips = helpCounter;
+            finalErrors = errorCounter;
+            helpCounter = 0;
+            errorCounter = 0;
             SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
         }
         else
@@ -283,16 +289,16 @@ public class ButtonPresser : MonoBehaviour
             }
             else if (nextIndex == 2)
             {
-                uiText.text = "Step 3: Press the Middle Rotation Knob!";
-                uiTextSmall.text = "Here you can activate the Display Mode to change between the displays";
+                uiText.text = "Step 3: Press the middle rotation knob!";
+                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
             }
             else if (nextIndex == 6)
             {
-                uiText.text = "Step 7: Press the Pit Limiter Button!";
+                uiText.text = "Step 7: Press the pit limiter button!";
             }
             else if (nextIndex == 9 || nextIndex == 10)
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS-Button!";
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button";
             }
             else
             {
@@ -300,11 +306,11 @@ public class ButtonPresser : MonoBehaviour
             }
             if (nextIndex == 3)
             {
-                uiTextSmall.text = "While checking the individual information of the car, this button helps to change between the views on the dislpay";
+                uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
             }
-            if (nextIndex == 4)
+            else if (nextIndex == 4)
             {
-                uiTextSmall.text = "By pressing it, you can connect with your team engineer";
+                uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
             }
             else if (nextIndex == 5)
             {
@@ -312,28 +318,23 @@ public class ButtonPresser : MonoBehaviour
             }
             else if (nextIndex == 6)
             {
-                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies this limit to the current speed";
+                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
             }
             else if (nextIndex == 7)
             {
-                uiTextSmall.text = "When the car leaves the pit lane, this button lifts the limit and the driver can start to speed up";
+                uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
             }
-            if (nextIndex == 8)
-            {
-                uiTextSmall.text = "This button activates the liquid supply";
-            }
-
             else if (nextIndex == 8)
             {
-                uiTextSmall.text = "It's useful to skip multiple views at once";
+                uiTextSmall.text = "This button activates the water supply";
             }
             else if (nextIndex == 9)
             {
-                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and is very useful for overtaking cars during the race";
+                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
             }
             else if (nextIndex == 10)
             {
-                uiTextSmall.text = "By pressing the button again, the rear wing gets closed";
+                uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
             }
         }
         cameraAnimator.enabled = false;
@@ -382,6 +383,8 @@ public class ButtonPresser : MonoBehaviour
     {
         audioSource.clip = buttonClick;
         audioSource.Play();
+        helpCounter = 0;
+        errorCounter = 0;
         SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 
@@ -412,27 +415,6 @@ public class ButtonPresser : MonoBehaviour
             case 2:
                 {
                     helpText.text = "It's the big rotation knob under the display";
-                    if (!helpButtonPressed[10])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[7] = true;
-                    }
-                    break;
-                }
-
-            case 3:
-                {
-                    helpText.text = "It's the one to the left of the Pit Limiter Button";
-                    if (!helpButtonPressed[7])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[7] = true;
-                    }
-                    break;
-                }
-            case 4:
-                {
-                    helpText.text = "It's just left from the main display!";
                     if (!helpButtonPressed[2])
                     {
                         helpCounter++;
@@ -440,9 +422,10 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 5:
+
+            case 3:
                 {
-                    helpText.text = "It's the furthest button to the left";
+                    helpText.text = "It's the one to the left of the Pit Limiter Button";
                     if (!helpButtonPressed[3])
                     {
                         helpCounter++;
@@ -450,9 +433,9 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 6:
+            case 4:
                 {
-                    helpText.text = "It's the big button in the upper right corner";
+                    helpText.text = "It's just left from the main display!";
                     if (!helpButtonPressed[4])
                     {
                         helpCounter++;
@@ -460,9 +443,9 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 7:
+            case 5:
                 {
-                    helpText.text = "It's the big button in the upper left corner";
+                    helpText.text = "It's the furthest button to the left";
                     if (!helpButtonPressed[5])
                     {
                         helpCounter++;
@@ -470,9 +453,9 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 8:
+            case 6:
                 {
-                    helpText.text = "It's next to the bottom left corner of the display";
+                    helpText.text = "It's the big button in the upper right corner";
                     if (!helpButtonPressed[6])
                     {
                         helpCounter++;
@@ -480,10 +463,19 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-
-            case 9:
+            case 7:
                 {
-                    helpText.text = "It's the one to the left of the +1-Button";
+                    helpText.text = "It's the big button in the upper left corner";
+                    if (!helpButtonPressed[7])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[7] = true;
+                    }
+                    break;
+                }
+            case 8:
+                {
+                    helpText.text = "It's next to the bottom left corner of the display";
                     if (!helpButtonPressed[8])
                     {
                         helpCounter++;
@@ -491,13 +483,24 @@ public class ButtonPresser : MonoBehaviour
                     }
                     break;
                 }
-            case 10:
+
+            case 9:
                 {
-                    helpText.text = "It's right from the rotation knob";
+                    helpText.text = "It's the one to the left of the +1-Button";
                     if (!helpButtonPressed[9])
                     {
                         helpCounter++;
                         helpButtonPressed[9] = true;
+                    }
+                    break;
+                }
+            case 10:
+                {
+                    helpText.text = "It's right from the rotation knob";
+                    if (!helpButtonPressed[10])
+                    {
+                        helpCounter++;
+                        helpButtonPressed[10] = true;
                     }
                     break;
                 }

@@ -382,7 +382,7 @@ public class DemoMode : MonoBehaviour
             }
             else if (nextIndex == 9 || nextIndex == 10)
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS-button!";
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button!";
             }
             else
             {
@@ -392,7 +392,7 @@ public class DemoMode : MonoBehaviour
             {
                 uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
             }
-            if (nextIndex == 4)
+            else if (nextIndex == 4)
             {
                 uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
             }
@@ -408,13 +408,9 @@ public class DemoMode : MonoBehaviour
             {
                 uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
             }
-            if (nextIndex == 8)
-            {
-                uiTextSmall.text = "This button activates the water supply";
-            }
             else if (nextIndex == 8)
             {
-                uiTextSmall.text = "It's useful to skip multiple views at once or change car settings";
+                uiTextSmall.text = "This button activates the water supply";
             }
             else if (nextIndex == 9)
             {

@@ -1029,7 +1029,7 @@ MonoBehaviour:
   infoButtonText: {fileID: 316490717}
   uiTextSmall: {fileID: 1889517419}
   infoButtonOn: 0
-  wantedColor: {r: 1, g: 0.3823665, b: 0, a: 1}
+  wantedColor: {r: 1, g: 0.47058824, b: 0, a: 1}
 --- !u!114 &152522307
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1397,6 +1397,8 @@ GameObject:
   - component: {fileID: 362304630}
   - component: {fileID: 362304629}
   - component: {fileID: 362304628}
+  - component: {fileID: 362304631}
+  - component: {fileID: 362304632}
   m_Layer: 5
   m_Name: InfoButton
   m_TagString: Untagged
@@ -1468,8 +1470,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280979223}
-        m_TargetAssemblyTypeName: ButtonPresser, Assembly-CSharp
+      - m_Target: {fileID: 362304631}
+        m_TargetAssemblyTypeName: InfoButtonColor, Assembly-CSharp
         m_MethodName: ChangeInfoState
         m_Mode: 1
         m_Arguments:
@@ -1518,6 +1520,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362304626}
   m_CullTransparentMesh: 0
+--- !u!114 &362304631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362304626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f155770f7232041823a22713409adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoButton: {fileID: 362304628}
+  infoButtonText: {fileID: 1763396983}
+  uiTextSmall: {fileID: 1889517419}
+  infoButtonOn: 0
+  wantedColor: {r: 1, g: 0.47058824, b: 0, a: 1}
+--- !u!114 &362304632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362304626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 362304631}
+          m_TargetAssemblyTypeName: InfoButtonColor, Assembly-CSharp
+          m_MethodName: ChangeWhenHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 362304631}
+          m_TargetAssemblyTypeName: InfoButtonColor, Assembly-CSharp
+          m_MethodName: ChangeWhenLeave
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &363294716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,7 +3077,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Step 1: Press the Car to get in'
+  m_text: 'Step 1: Press the car to get in!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7248,7 +7312,7 @@ GameObject:
   - component: {fileID: 8687763742354373703}
   - component: {fileID: 5151986419086333108}
   - component: {fileID: 5616464260609141235}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Charge Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
