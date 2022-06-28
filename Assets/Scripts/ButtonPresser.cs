@@ -200,7 +200,6 @@ public class ButtonPresser : MonoBehaviour
         if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             helpButton.interactable = false;
-            quitButton.interactable = false;
         }
         infoButton.interactable = false;
         if (nextIndex == 2)
@@ -219,7 +218,6 @@ public class ButtonPresser : MonoBehaviour
         if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             helpButton.interactable = true;
-            quitButton.interactable = true;
         }
         infoButton.interactable = true;
         if (nextIndex == 3)
@@ -394,113 +392,124 @@ public class ButtonPresser : MonoBehaviour
         {
             case 0:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's right in front of you!";
                     if (!helpButtonPressed[0])
                     {
                         helpCounter++;
                         helpButtonPressed[0] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 1:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's on the car!";
                     if (!helpButtonPressed[1])
                     {
                         helpCounter++;
                         helpButtonPressed[1] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 2:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's the big rotation knob under the display";
                     if (!helpButtonPressed[2])
                     {
                         helpCounter++;
                         helpButtonPressed[2] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
 
             case 3:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's the one to the left of the Pit Limiter Button";
                     if (!helpButtonPressed[3])
                     {
                         helpCounter++;
                         helpButtonPressed[3] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 4:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's just left from the main display!";
                     if (!helpButtonPressed[4])
                     {
                         helpCounter++;
                         helpButtonPressed[4] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 5:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's the furthest button to the left";
                     if (!helpButtonPressed[5])
                     {
                         helpCounter++;
                         helpButtonPressed[5] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 6:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's the big button in the upper right corner";
                     if (!helpButtonPressed[6])
                     {
                         helpCounter++;
                         helpButtonPressed[6] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 7:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's the big button in the upper left corner";
                     if (!helpButtonPressed[7])
                     {
                         helpCounter++;
                         helpButtonPressed[7] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
             case 8:
                 {
+                    helpButton.interactable = true;
                     helpText.text = "It's next to the bottom left corner of the display";
                     if (!helpButtonPressed[8])
                     {
                         helpCounter++;
                         helpButtonPressed[8] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
 
             case 9:
+            case 10:
                 {
-                    helpText.text = "It's the one to the left of the +1-Button";
+                    helpButton.interactable = true;
+                    helpText.text = "It's right from the rotation knob";
                     if (!helpButtonPressed[9])
                     {
                         helpCounter++;
                         helpButtonPressed[9] = true;
-                    }
-                    break;
-                }
-            case 10:
-                {
-                    helpText.text = "It's right from the rotation knob";
-                    if (!helpButtonPressed[10])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[10] = true;
+                        helpButton.interactable = false;
                     }
                     break;
                 }
