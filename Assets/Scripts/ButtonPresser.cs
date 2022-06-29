@@ -67,6 +67,7 @@ public class ButtonPresser : MonoBehaviour
     public static int errorCounter = 0;
     public static int finalTips = 0;
     public static int finalErrors = 0;
+    public static bool rotationEnabled = true;
 
     Scene scene;
 
@@ -121,7 +122,6 @@ public class ButtonPresser : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && nextIndex >= 0 && nextIndex < objectsInOrder.Length)
         {
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -142,6 +142,7 @@ public class ButtonPresser : MonoBehaviour
 
     IEnumerator waitForSomeTime(RaycastHit hit)
     {
+        rotationEnabled = !rotationEnabled;
         if (nextIndex != 0)
         {
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
@@ -170,33 +171,67 @@ public class ButtonPresser : MonoBehaviour
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("closer", true);
         }
-        else
+        else if (nextIndex == 2)
         {
             animator.SetBool("pressed", true);
-        }
-        if (nextIndex == 2)
-        {
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("middle", true);
         }
-        if (nextIndex == 9)
+        else if (nextIndex == 3)
         {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("one", true);
+        }
+        else if (nextIndex == 4)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("radio", true);
+        }
+        else if (nextIndex == 5)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("confirm", true);
+        }
+        else if (nextIndex == 6)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("pit", true);
+        }
+        else if (nextIndex == 7)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("neutral", true);
+        }
+        else if (nextIndex == 8)
+        {
+            animator.SetBool("pressed", true);
+            cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("drink", true);
+        }
+        else if (nextIndex == 9)
+        {
+            animator.SetBool("pressed", true);
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", true);
             rearWingAnimator.SetBool("open", true);
         }
-        if (nextIndex == 10)
+        else if (nextIndex == 10)
         {
+            animator.SetBool("pressedAgain", true);
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", false);
             rearWingAnimator.SetBool("open", false);
-            animator.SetBool("pressedAgain", true);
+
         }
         foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
         {
             gbjCollider.enabled = false;
         }
-        ChangeWheelText();
         if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             helpButton.interactable = false;
@@ -206,10 +241,60 @@ public class ButtonPresser : MonoBehaviour
         {
             yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
         }
+        else if (nextIndex == 3)
+        {
+            yield return new WaitForSeconds(4f);
+            racingDisplay.SetActive(false);
+            testingDisplay.SetActive(true);
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 4)
+        {
+            yield return new WaitForSeconds(7.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 5)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 6)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 7)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 8)
+        {
+            yield return new WaitForSeconds(12f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 9)
+        {
+            yield return new WaitForSeconds(9.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 10)
+        {
+            yield return new WaitForSeconds(9.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
         else
         {
             yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
         }
+        //ChangeWheelText();
         if (nextIndex == 1)
         {
             racingDisplay.SetActive(true);
@@ -220,11 +305,6 @@ public class ButtonPresser : MonoBehaviour
             helpButton.interactable = true;
         }
         infoButton.interactable = true;
-        if (nextIndex == 3)
-        {
-            racingDisplay.SetActive(false);
-            testingDisplay.SetActive(true);
-        }
         for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
         {
             var child = f1.transform.GetChild(childIndex);
@@ -277,6 +357,7 @@ public class ButtonPresser : MonoBehaviour
             finalErrors = errorCounter;
             helpCounter = 0;
             errorCounter = 0;
+            nextIndex = 0;
             SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
         }
         else
@@ -335,6 +416,7 @@ public class ButtonPresser : MonoBehaviour
                 uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
             }
         }
+        rotationEnabled = !rotationEnabled;
         cameraAnimator.enabled = false;
     }
 
@@ -383,6 +465,7 @@ public class ButtonPresser : MonoBehaviour
         audioSource.Play();
         helpCounter = 0;
         errorCounter = 0;
+        nextIndex = 0;
         SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 
