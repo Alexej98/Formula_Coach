@@ -13,8 +13,6 @@ public class TextChanger : MonoBehaviour
 
     void Update()
     {
-
-       
         if(demoScene == false)
         {
             congratulationText.text = "Congratulations! Your car is ready to take on the podium!\n You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";

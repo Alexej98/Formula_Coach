@@ -23,10 +23,6 @@ public class CameraController : MonoBehaviour
         {
             RotateCamera();
         }
-        /*if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-        {
-            Zoom();
-        }*/
     }
 
     private void RotateCamera()
@@ -51,15 +47,4 @@ public class CameraController : MonoBehaviour
             }
         }
     }
-
-    /*private void Zoom()
-    {
-        float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        #region Limit Zoom Distance
-        float nextZoomDistance = Vector3.Distance(target.position, transform.position) - ScrollAmount;
-        if (nextZoomDistance >= MaxZoomDistance || nextZoomDistance <= MinZoomDistance)
-            return;
-        #endregion
-        transform.Translate(new Vector3(0, 0, ScrollAmount*0.05f), Space.Self);
-    }*/
 }
