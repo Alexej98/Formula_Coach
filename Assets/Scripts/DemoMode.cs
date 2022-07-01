@@ -155,6 +155,7 @@ public class DemoMode : MonoBehaviour
         }
         else if (nextIndex == 1)
         {
+            racingDisplay.SetActive(true);
             animator.Play("DemoWheelAnimation");
             cameraAnimator.Play("DemoCameraAnimationToWheel");
         }
@@ -165,6 +166,8 @@ public class DemoMode : MonoBehaviour
         }
         else if (nextIndex == 3)
         {
+            racingDisplay.SetActive(false);
+            testingDisplay.SetActive(true);
             cameraAnimator.Play("DemoCameraAnimationOneButton");
             animator.Play("Demo+1Button");
         }
@@ -209,6 +212,7 @@ public class DemoMode : MonoBehaviour
             animator.Play("DemoDRSButtonAgain");
             rearWingAnimator.Play("DemoRearWingAnimationBack");
         }
+        ChangeWheelText();
     }
 
     void StopAnimation()
@@ -252,109 +256,6 @@ public class DemoMode : MonoBehaviour
         {
             forwardButton.interactable = true;
         }
-    }
-
-    public IEnumerator waitForSomeTime()
-    {
-        Debug.Log(nextIndex);
-        coroutineStarted = true;
-        cameraAnimator.SetFloat("speed", 1.0f);
-        animator.SetFloat("speed", 1.0f);
-        
-        if (nextIndex != 0)
-        {
-            animator = objectsInOrder[nextIndex].GetComponent<Animator>();
-        }
-        
-        if (objectsInOrder[nextIndex] == radioButton)
-        {
-            audioSource.Play();
-        }
-        else if (objectsInOrder[nextIndex] == drinkButton)
-        {
-            audioSource.clip = slurp;
-            audioSource.Play();
-        }
-
-        if (nextIndex == 0)
-        {
-            cameraAnimator.SetBool("pressed", true);
-            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length);
-        }
-        else if(nextIndex != 2)
-        {
-            animator.SetBool("pressed", true);
-        }
-        if(nextIndex == 1)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-            racingDisplay.SetActive(true);
-            cameraAnimator.SetBool("closer", true);
-            yield return new WaitForSeconds(1f);
-        }
-        if (nextIndex == 2)
-        {
-            cameraAnimator.SetBool("middle", true);
-            yield return new WaitForSeconds(1.3f);
-            animator.SetBool("pressed", true);
-            yield return new WaitForSeconds(3.7f);
-        }
-        if (nextIndex == 3)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 4)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 5)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 6)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 7)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 8)
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 9)
-        {
-            cameraAnimator.SetBool("drs", true);
-            rearWingAnimator.SetBool("open", true);
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-        if (nextIndex == 10)
-        {
-            cameraAnimator.SetBool("drs", false);
-            rearWingAnimator.SetBool("open", false);
-            animator.SetBool("pressedAgain", true);
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
-        }
-
-        ChangeWheelText();
-
-        if (nextIndex == 3)
-        {
-            racingDisplay.SetActive(false);
-            testingDisplay.SetActive(true);
-        }
-        nextIndex++;
-        ChangeStepText();
-        if (nextIndex == objectsInOrder.Length)
-        {
-            SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
-        }
-
-        animator.Update(0f);
-        cameraAnimator.Update(0f);
-        coroutineStarted = false;
-
     }
 
     void ChangeStepText()
@@ -425,30 +326,45 @@ public class DemoMode : MonoBehaviour
 
     void ChangeWheelText()
     {
-        if (nextIndex == 4)
+        if(nextIndex == 3)
+        {
+            radioOnOff.text = "NOT TESTED";
+            radioOnOff.color = Color.red;
+        }
+        else if (nextIndex == 4)
         {
             radioOnOff.text = "TESTED";
             radioOnOff.color = Color.green;
+            pitConfirmed.text = "NOT TESTED";
+            pitConfirmed.color = Color.red;
         }
         else if (nextIndex == 5)
         {
             pitConfirmed.text = "TESTED";
             pitConfirmed.color = Color.green;
+            pitLimited.text = "NOT TESTED";
+            pitLimited.color = Color.red;
         }
         else if (nextIndex == 6)
         {
             pitLimited.text = "TESTED";
             pitLimited.color = Color.green;
+            neutral.text = "NOT TESTED";
+            neutral.color = Color.red;
         }
         else if (nextIndex == 7)
         {
             neutral.text = "TESTED";
             neutral.color = Color.green;
+            drinkActive.text = "NOT TESTED";
+            drinkActive.color = Color.red;
         }
         else if (nextIndex == 8)
         {
             drinkActive.text = "TESTED";
             drinkActive.color = Color.green;
+            drsActive.text = "NOT TESTED";
+            drsActive.color = Color.red;
         }
         else if (nextIndex == 9)
         {
