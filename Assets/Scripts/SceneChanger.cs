@@ -88,7 +88,7 @@ public class SceneChanger : MonoBehaviour
         backButton.SetActive(false);
         title.SetActive(false);
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-        controls.transform.position = new Vector3(controls.transform.position.x, 0.0092f, controls.transform.position.z);
+        controls.transform.position = new Vector3(controls.transform.position.x, 0.06f, controls.transform.position.z);
         backButton.SetActive(true);
         
     }
