@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] public float moveSpeed = 3f;
-    [SerializeField] public float rotationSpeed = 2f;
-    private int nextIndex;
-    private bool rotationEnabled;
-
-    private void Start()
-    {
-        nextIndex = ButtonPresser.nextIndex;
-        rotationEnabled = ButtonPresser.rotationEnabled;
-    }
+    private float rotationSpeed = 2f;
+    private int nextIndex = 0;
+    public static bool rotationEnabled;
 
     private void LateUpdate()
     {
         nextIndex = ButtonPresser.nextIndex;
-        rotationEnabled = ButtonPresser.rotationEnabled;
         if (Input.GetMouseButton(1) && rotationEnabled)
         {
             RotateCamera();

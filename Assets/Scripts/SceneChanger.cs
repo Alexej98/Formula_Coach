@@ -56,7 +56,7 @@ public class SceneChanger : MonoBehaviour
         Destroy(backButton);
         Destroy(title);
         animator.SetBool("start", true);
-        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         SceneManager.LoadScene(name);
     }
 
@@ -87,7 +87,7 @@ public class SceneChanger : MonoBehaviour
         quitButton.SetActive(false);
         backButton.SetActive(false);
         title.SetActive(false);
-        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         controls.transform.position = new Vector3(controls.transform.position.x, 0.06f, controls.transform.position.z);
         backButton.SetActive(true);
         
@@ -100,15 +100,13 @@ public class SceneChanger : MonoBehaviour
         animator.SetBool("pressed", false);
         backButton.SetActive(false);
         controls.transform.position = new Vector3(controls.transform.position.x, 0f, controls.transform.position.z);
-        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         tutorialButton.SetActive(true);
         demoButton.SetActive(true);
         controlButton.SetActive(true);
         quitButton.SetActive(true);
         title.SetActive(true);
     }
-
-
 
     public void Quit()
     {

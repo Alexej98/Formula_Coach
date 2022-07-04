@@ -76,6 +76,7 @@ public class DemoMode : MonoBehaviour
     void Start()
     {
         demoSceneLoaded = true;
+        CameraController.rotationEnabled = false;
 
         scene = SceneManager.GetActiveScene();
         radioButton = GameObject.FindGameObjectWithTag("RadioButton");
@@ -84,9 +85,8 @@ public class DemoMode : MonoBehaviour
         drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
         neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
         drsButton = GameObject.FindGameObjectWithTag("DRSButton");
-        quitButton = GameObject.FindGameObjectWithTag("QuitButtonDemo").GetComponent<Button>();
+        quitButton = GameObject.FindGameObjectWithTag("QuitButton").GetComponent<Button>();
         button1 = GameObject.FindGameObjectWithTag("+1Button");
-        quitButton.onClick.AddListener(QuitButtonClicked);
         button10 = GameObject.FindGameObjectWithTag("-10Button");
         middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
         rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
@@ -137,6 +137,27 @@ public class DemoMode : MonoBehaviour
         LoopAnimation();
     }
 
+    void Update()
+    {
+        if (nextIndex == 0)
+        {
+            backButton.interactable = false;
+        }
+        else
+        {
+            backButton.interactable = true;
+        }
+
+        if (nextIndex == 10)
+        {
+            forwardButton.interactable = false;
+        }
+        else
+        {
+            forwardButton.interactable = true;
+        }
+    }
+
     void LoopAnimation()
     {
         ChangeStepText();
@@ -151,6 +172,7 @@ public class DemoMode : MonoBehaviour
 
         if (nextIndex == 0)
         {
+            racingDisplay.SetActive(false);
             cameraAnimator.Play("DemoCameraAnimationToSeat");
         }
         else if (nextIndex == 1)
@@ -225,6 +247,11 @@ public class DemoMode : MonoBehaviour
         {
             animator.Play("DemoMiddleRotateEnd");
         }
+        else if (nextIndex == 9)
+        {
+            rearWingAnimator.Play("New State");
+            animator.Play("New State");
+        }
         else
         {
             animator.Play("New State");
@@ -236,60 +263,31 @@ public class DemoMode : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (nextIndex == 0)
-        {
-            backButton.interactable = false;
-        }
-        else 
-        {
-            backButton.interactable = true;
-        }
-
-        if (nextIndex == 10)
-        {
-            forwardButton.interactable = false;
-        }
-        else
-        {
-            forwardButton.interactable = true;
-        }
-    }
-
     void ChangeStepText()
     {
         if(nextIndex != objectsInOrder.Length)
         {
             if (nextIndex == 0)
             {
-                uiText.text = "Step 1: Press the car to get in!";
-                uiTextSmall.text = "";
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the car to get in!";
             }
-            else if (nextIndex == 1)
-            {
-                uiText.text = "Step 2: Press the Steering Wheel!";
-                uiTextSmall.text = "";
-            }
-            else if (nextIndex == 2)
-            {
-                uiText.text = "Step 3: Press the middle rotation knob!";
-                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
-            }
-            else if (nextIndex == 6)
-            {
-                uiText.text = "Step 7: Press the pit limiter button!";
-            }
-            else if (nextIndex == 9 || nextIndex == 10)
+            else if (nextIndex == 9)
             {
                 uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button!";
+            }
+            else if (nextIndex == 10)
+            {
+                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button again!";
             }
             else
             {
                 uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
             }
-            if (nextIndex == 3)
+            if (nextIndex == 2)
+            {
+                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
+            }
+            else if (nextIndex == 3)
             {
                 uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
             }
@@ -378,7 +376,7 @@ public class DemoMode : MonoBehaviour
         }
     }
 
-    void QuitButtonClicked()
+    public void QuitButtonClicked()
     {
         audioSource.clip = buttonClick;
         audioSource.Play();

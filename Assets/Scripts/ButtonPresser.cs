@@ -67,13 +67,13 @@ public class ButtonPresser : MonoBehaviour
     public static int errorCounter = 0;
     public static int finalTips = 0;
     public static int finalErrors = 0;
-    public static bool rotationEnabled = true;
 
     Scene scene;
 
     // Start is called before the first frame update
     void Start()
     {
+        CameraController.rotationEnabled = true;
         scene = SceneManager.GetActiveScene();
         radioButton = GameObject.FindGameObjectWithTag("RadioButton");
         confirmButton = GameObject.FindGameObjectWithTag("ConfirmButton");
@@ -142,7 +142,7 @@ public class ButtonPresser : MonoBehaviour
 
     IEnumerator waitForSomeTime(RaycastHit hit)
     {
-        rotationEnabled = !rotationEnabled;
+        CameraController.rotationEnabled = !CameraController.rotationEnabled;
         if (nextIndex != 0)
         {
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
@@ -160,12 +160,156 @@ public class ButtonPresser : MonoBehaviour
             audioSource.clip = slurp;
             audioSource.Play();
         }
+        EnableAnimator();
+        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+        {
+            gbjCollider.enabled = false;
+        }
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = false;
+        }
+        if (nextIndex == 2)
+        {
+            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        }
+        else if (nextIndex == 3)
+        {
+            yield return new WaitForSeconds(4f);
+            racingDisplay.SetActive(false);
+            testingDisplay.SetActive(true);
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 4)
+        {
+            yield return new WaitForSeconds(7.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 5)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 6)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 7)
+        {
+            yield return new WaitForSeconds(4f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 8)
+        {
+            yield return new WaitForSeconds(12f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 9)
+        {
+            yield return new WaitForSeconds(9.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else if (nextIndex == 10)
+        {
+            yield return new WaitForSeconds(9.5f);
+            ChangeWheelText();
+            yield return new WaitForSeconds(3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+        }
+        if (nextIndex == 1)
+        {
+            racingDisplay.SetActive(true);
+            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
+        }
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = true;
+        }
+        EnableButtonInteraction();
+        nextIndex++;
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpText.text = "";
+        }
+        if (nextIndex == objectsInOrder.Length)
+        {
+            finalTips = helpCounter;
+            finalErrors = errorCounter;
+            helpCounter = 0;
+            errorCounter = 0;
+            nextIndex = 0;
+            SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
+        }
+        else
+        {
+            ChangeUIText();
+        }
+        CameraController.rotationEnabled = !CameraController.rotationEnabled;
+        cameraAnimator.enabled = false;
+    }
+
+    void EnableButtonInteraction()
+    {
+        for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
+        {
+            var child = f1.transform.GetChild(childIndex);
+            try
+            {
+                if (nextIndex == 0)
+                {
+                    if (!child.tag.Equals("Car"))
+                    {
+                        child.GetComponent<Collider>().enabled = true;
+                    }
+                }
+                else
+                {
+                    for (int wheelChildIndex = 0; wheelChildIndex < steeringWheel.transform.childCount; wheelChildIndex++)
+                    {
+                        var wheelChild = steeringWheel.transform.GetChild(wheelChildIndex);
+                        try
+                        {
+                            wheelChild.GetComponent<Collider>().enabled = true;
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                wheelChild.GetChild(0).GetComponent<Collider>().enabled = true;
+                            }
+                            catch
+                            {
+                                continue;
+                            };
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                continue;
+            }
+        }
+    }
+
+    void EnableAnimator()
+    {
         if (nextIndex == 0)
         {
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("pressed", true);
         }
-        else if(nextIndex == 1)
+        else if (nextIndex == 1)
         {
             animator.SetBool("pressed", true);
             cameraAnimator.enabled = true;
@@ -226,198 +370,55 @@ public class ButtonPresser : MonoBehaviour
             cameraAnimator.enabled = true;
             cameraAnimator.SetBool("drs", false);
             rearWingAnimator.SetBool("open", false);
+        }
+    }
 
-        }
-        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+    void ChangeUIText()
+    {
+        if (nextIndex == 10)
         {
-            gbjCollider.enabled = false;
+            uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button again!";
         }
-        if (scene.name == "F1_Demonstrator_TutorialMode")
+        else
         {
-            helpButton.interactable = false;
+            uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
         }
-        infoButton.interactable = false;
         if (nextIndex == 2)
         {
-            yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
+            uiTextSmall.text = "Here you can activate the display mode to change between the display views";
         }
         else if (nextIndex == 3)
         {
-            yield return new WaitForSeconds(4f);
-            racingDisplay.SetActive(false);
-            testingDisplay.SetActive(true);
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
         }
         else if (nextIndex == 4)
         {
-            yield return new WaitForSeconds(7.5f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
         }
         else if (nextIndex == 5)
         {
-            yield return new WaitForSeconds(4f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
         }
         else if (nextIndex == 6)
         {
-            yield return new WaitForSeconds(4f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
         }
         else if (nextIndex == 7)
         {
-            yield return new WaitForSeconds(4f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
         }
         else if (nextIndex == 8)
         {
-            yield return new WaitForSeconds(12f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "This button activates the water supply";
         }
         else if (nextIndex == 9)
         {
-            yield return new WaitForSeconds(9.5f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
         }
         else if (nextIndex == 10)
         {
-            yield return new WaitForSeconds(9.5f);
-            ChangeWheelText();
-            yield return new WaitForSeconds(3f);
+            uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
         }
-        else
-        {
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length + 1.0f);
-        }
-        //ChangeWheelText();
-        if (nextIndex == 1)
-        {
-            racingDisplay.SetActive(true);
-            yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
-        }
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton.interactable = true;
-        }
-        infoButton.interactable = true;
-        for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
-        {
-            var child = f1.transform.GetChild(childIndex);
-            try
-            {
-                if (nextIndex == 0)
-                {
-                    if (!child.tag.Equals("Car"))
-                    {
-                        child.GetComponent<Collider>().enabled = true;
-                    }
-                }
-                else
-                {
-                    for (int wheelChildIndex = 0; wheelChildIndex < steeringWheel.transform.childCount; wheelChildIndex++)
-                    {
-                        var wheelChild = steeringWheel.transform.GetChild(wheelChildIndex);
-                        try
-                        {
-                            wheelChild.GetComponent<Collider>().enabled = true;
-                        }
-                        catch
-                        {
-                            try
-                            {
-                                wheelChild.GetChild(0).GetComponent<Collider>().enabled = true;
-                            }
-                            catch
-                            {
-                                continue;
-                            };
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                continue;
-            }
-
-        }
-        nextIndex++;
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpText.text = "";
-        }
-        if (nextIndex == objectsInOrder.Length)
-        {
-            finalTips = helpCounter;
-            finalErrors = errorCounter;
-            helpCounter = 0;
-            errorCounter = 0;
-            nextIndex = 0;
-            SceneManager.LoadScene("F1_Demonstrator_PostDemoScreen");
-        }
-        else
-        {
-            if (nextIndex == 1)
-            {
-                uiText.text = "Step 2: Press the Steering Wheel!";
-            }
-            else if (nextIndex == 2)
-            {
-                uiText.text = "Step 3: Press the middle rotation knob!";
-                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
-            }
-            else if (nextIndex == 6)
-            {
-                uiText.text = "Step 7: Press the pit limiter button!";
-            }
-            else if (nextIndex == 9 || nextIndex == 10)
-            {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button";
-            }
-            else
-            {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
-            }
-            if (nextIndex == 3)
-            {
-                uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
-            }
-            else if (nextIndex == 4)
-            {
-                uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
-            }
-            else if (nextIndex == 5)
-            {
-                uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
-            }
-            else if (nextIndex == 6)
-            {
-                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
-            }
-            else if (nextIndex == 7)
-            {
-                uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
-            }
-            else if (nextIndex == 8)
-            {
-                uiTextSmall.text = "This button activates the water supply";
-            }
-            else if (nextIndex == 9)
-            {
-                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
-            }
-            else if (nextIndex == 10)
-            {
-                uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
-            }
-        }
-        rotationEnabled = !rotationEnabled;
-        cameraAnimator.enabled = false;
     }
 
     void ChangeWheelText()
@@ -459,13 +460,16 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
-    void QuitButtonClicked()
+    public void QuitButtonClicked()
     {
         audioSource.clip = buttonClick;
         audioSource.Play();
-        helpCounter = 0;
-        errorCounter = 0;
-        nextIndex = 0;
+        if(scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpCounter = 0;
+            errorCounter = 0;
+            nextIndex = 0;
+        }
         SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 
@@ -625,6 +629,7 @@ public class ButtonPresser : MonoBehaviour
             Debug.DrawLine(ray.origin, ray.direction * 20, Color.red);
         }
     }
+
     private void Select(GameObject selectedGameObject)
     {
         this.selectedGameObject = selectedGameObject;
@@ -671,6 +676,7 @@ public class ButtonPresser : MonoBehaviour
         selectedGameObject.GetComponent<Renderer>().material = selectedGameObjectMaterial;
         selectedGameObject = null;
     }
+
     bool AnimatorIsPlaying()
     {
         return animator.GetCurrentAnimatorStateInfo(0).length >
