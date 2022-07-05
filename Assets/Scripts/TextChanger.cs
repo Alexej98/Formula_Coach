@@ -15,6 +15,7 @@ public class TextChanger : MonoBehaviour
         ChangeText();
     }
 
+    //changes the text in dependence of the errorCounter
     void ChangeText()
     {
         congratulationText.text = "Congratulations! Your car is ready to take on the podium!\n You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";

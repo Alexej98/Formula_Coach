@@ -161,17 +161,13 @@ public class DemoMode : MonoBehaviour
     void LoopAnimation()
     {
         ChangeStepText();
-        if (nextIndex == 0)
-        {
-            animator.Play("New State");
-        }
         if (nextIndex != 0)
         { 
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
         }
-
         if (nextIndex == 0)
         {
+            animator.Play("New State");
             racingDisplay.SetActive(false);
             cameraAnimator.Play("DemoCameraAnimationToSeat");
         }

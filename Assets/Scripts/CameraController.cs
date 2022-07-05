@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    //rotation of the camera if enabled
     private void RotateCamera()
     {
         float yaw = Input.GetAxis("Mouse X");
