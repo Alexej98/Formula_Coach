@@ -134,7 +134,7 @@ public class ButtonPresser : MonoBehaviour
                 else
                 {
                     errorCounter++;
-                    helpText.text = "Wrong Order! You have made " + errorCounter + " mistakes";
+                    helpText.text = "Wrong button! Try again";
                 }
             }
         }
@@ -147,28 +147,9 @@ public class ButtonPresser : MonoBehaviour
         {
             animator = objectsInOrder[nextIndex].GetComponent<Animator>();
         }
-        if (nextIndex == 0 || nextIndex == 1)
-        {
-            hit.collider.gameObject.GetComponent<Collider>().enabled = false;
-        }
-        if (objectsInOrder[nextIndex] == radioButton)
-        {
-            audioSource.Play();
-        }
-        else if (objectsInOrder[nextIndex] == drinkButton)
-        {
-            audioSource.clip = slurp;
-            audioSource.Play();
-        }
+        PlaySound();
         EnableAnimator();
-        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
-        {
-            gbjCollider.enabled = false;
-        }
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton.interactable = false;
-        }
+        DisableCollider(hit);
         if (nextIndex == 2)
         {
             yield return new WaitForSeconds(cameraAnimator.runtimeAnimatorController.animationClips[0].length + 1.0f);
@@ -231,16 +212,19 @@ public class ButtonPresser : MonoBehaviour
             racingDisplay.SetActive(true);
             yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length - 1.5f);
         }
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton.interactable = true;
-        }
-        EnableButtonInteraction();
+        EnableCollider();
         nextIndex++;
         if (scene.name == "F1_Demonstrator_TutorialMode")
         {
             helpText.text = "";
         }
+        CheckOnEnd();
+        CameraController.rotationEnabled = !CameraController.rotationEnabled;
+        cameraAnimator.enabled = false;
+    }
+
+    void CheckOnEnd()
+    {
         if (nextIndex == objectsInOrder.Length)
         {
             finalTips = helpCounter;
@@ -254,12 +238,43 @@ public class ButtonPresser : MonoBehaviour
         {
             ChangeUIText();
         }
-        CameraController.rotationEnabled = !CameraController.rotationEnabled;
-        cameraAnimator.enabled = false;
     }
 
-    void EnableButtonInteraction()
+    void PlaySound()
     {
+        if (objectsInOrder[nextIndex] == radioButton)
+        {
+            audioSource.Play();
+        }
+        else if (objectsInOrder[nextIndex] == drinkButton)
+        {
+            audioSource.clip = slurp;
+            audioSource.Play();
+        }
+    }
+
+    void DisableCollider(RaycastHit hit)
+    {
+        if (nextIndex == 0 || nextIndex == 1)
+        {
+            hit.collider.gameObject.GetComponent<Collider>().enabled = false;
+        }
+        foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
+        {
+            gbjCollider.enabled = false;
+        }
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = false;
+        }
+    }
+
+    void EnableCollider()
+    {
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpButton.interactable = true;
+        }
         for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
         {
             var child = f1.transform.GetChild(childIndex);
