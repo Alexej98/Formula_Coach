@@ -1183,7 +1183,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a0428e40705774cb9a42d59c160ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radioButton: {fileID: 3116357946306684315}
+  confirmButton: {fileID: 6538201300246351802}
+  pitLimiterButton: {fileID: 5636748175044757645}
+  drinkButton: {fileID: 5805412358162293146}
+  neutralButton: {fileID: 2145956992514701926}
+  drsButton: {fileID: 3754475651508565998}
+  button1: {fileID: 6248248147400038941}
+  middleRotate: {fileID: 5785785631926133351}
+  rearWing: {fileID: 6532713721168801354}
+  steeringWheel: {fileID: 8548303885404137765}
+  f1: {fileID: 919132148249295396}
+  helpButton: {fileID: 467949675}
+  quitButton: {fileID: 1284346029}
   infoButton: {fileID: 362304628}
+  racingDisplay: {fileID: 3546709}
+  testingDisplay: {fileID: 1418115515}
   materialOriginals: []
   materialCopies: []
   carObjects: []
@@ -1217,6 +1232,18 @@ MonoBehaviour:
   cameraAnimator: {fileID: 0}
   rearWingAnimator: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 2a6ac87e3f5cdb44abb79c9b2920eb9d, type: 2}
+  helpTexts:
+  - It's right in front of you!
+  - It's on the car!
+  - It's the big rotation knob under the display
+  - It's the one to the left of the Pit Limiter Button
+  - It's just left from the main display!
+  - It's the furthest button to the left
+  - It's the big button in the upper right corner
+  - It's the big button in the upper left corner
+  - It's next to the bottom left corner of the display
+  - It's right from the rotation knob
+  - It's right from the rotation knob
 --- !u!114 &280979224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2568,7 +2595,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 467949676}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 280979223}
+        m_TargetAssemblyTypeName: TutorialMode, Assembly-CSharp
+        m_MethodName: HelpButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &467949676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3869,7 +3908,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1284346030}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 280979223}
+        m_TargetAssemblyTypeName: TutorialMode, Assembly-CSharp
+        m_MethodName: QuitButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1284346030
 MonoBehaviour:
   m_ObjectHideFlags: 0

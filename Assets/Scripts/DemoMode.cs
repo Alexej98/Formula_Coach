@@ -12,30 +12,18 @@ public class DemoMode : MonoBehaviour
 
     public static bool demoSceneLoaded = false;
 
-    GameObject radioButton;
-    GameObject confirmButton;
-    GameObject pitLimiterButton;
-    GameObject drinkButton;
-    GameObject neutralButton;
-    GameObject drsButton;
-    GameObject button1;
-    GameObject button10;
-    GameObject middleRotate;
-    GameObject car;
-    GameObject rearWing;
-    GameObject steeringWheel;
-    GameObject f1;
-    Button quitButton;
+    [SerializeField] GameObject rearWing;
+    [SerializeField] GameObject f1;
 
-    GameObject racingDisplay;
-    GameObject testingDisplay;
+    [SerializeField] GameObject racingDisplay;
+    [SerializeField] GameObject testingDisplay;
 
     private LayerMask layerMask;
 
-    public Material[] materialOriginals;
-    public Material[] materialCopies;
-    public Material[][] materialOriginalsList = new Material[3][];
-    public GameObject[] carObjects;
+    private Material[] materialOriginals;
+    private Material[] materialCopies;
+    private Material[][] materialOriginalsList = new Material[3][];
+    private GameObject[] carObjects;
     public int selectedObject;
 
     [SerializeField] AudioSource audioSource;
@@ -71,29 +59,56 @@ public class DemoMode : MonoBehaviour
 
     Scene scene;
 
+    private string[] helpTexts =
+    {
+        "It's right in front of you!",
+        "It's on the car!",
+        "It's the big rotation knob under the display",
+        "It's the one to the left of the Pit Limiter Button",
+        "It's just left from the main display!",
+        "It's the furthest button to the left",
+        "It's the big button in the upper right corner",
+        "It's the big button in the upper left corner",
+        "It's next to the bottom left corner of the display",
+        "It's right from the rotation knob",
+        "It's right from the rotation knob"
+    };
+
+    private string[] infoTexts =
+    {
+        "",
+        "",
+        "Here you can activate the display mode to change between the display views",
+        "While checking the individual information of the car, this button skips through the views on the display",
+        "By pressing it, you can communicate with your team engineer",
+        "This button is used when a driver has to confirm to box in the current lap",
+        "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit",
+        "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear",
+        "This button activates the water supply",
+        "One of the most important buttons. It opens the rear wing and makes overtaking easier",
+        "By pressing the button again, or braking, the rear wing gets closed"
+    };
+
+    private string[] animatorStates =
+{
+        "pressed",
+        "closer",
+        "middle",
+        "one",
+        "radio",
+        "confirm",
+        "pit",
+        "neutral",
+        "drink",
+        "drs",
+        "drsAgain"
+    };
+
     void Start()
     {
         demoSceneLoaded = true;
         CameraController.rotationEnabled = false;
 
-        scene = SceneManager.GetActiveScene();
-        radioButton = GameObject.FindGameObjectWithTag("RadioButton");
-        confirmButton = GameObject.FindGameObjectWithTag("ConfirmButton");
-        pitLimiterButton = GameObject.FindGameObjectWithTag("PitLimiterButton");
-        drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
-        neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
-        drsButton = GameObject.FindGameObjectWithTag("DRSButton");
-        quitButton = GameObject.FindGameObjectWithTag("QuitButton").GetComponent<Button>();
-        button1 = GameObject.FindGameObjectWithTag("+1Button");
-        button10 = GameObject.FindGameObjectWithTag("-10Button");
-        middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
-        rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
-        car = GameObject.FindGameObjectWithTag("Car");
-        steeringWheel = GameObject.FindGameObjectWithTag("SteeringWheel");
-        f1 = GameObject.FindGameObjectWithTag("F1");
-
-        racingDisplay = GameObject.FindGameObjectWithTag("RacingDisplay");
-        testingDisplay = GameObject.FindGameObjectWithTag("TestingDisplay");
         racingDisplay.SetActive(false);
         testingDisplay.SetActive(false);
 
@@ -283,42 +298,7 @@ public class DemoMode : MonoBehaviour
             {
                 uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the " + objectsInOrder[nextIndex].name + "!";
             }
-            if (nextIndex == 2)
-            {
-                uiTextSmall.text = "Here you can activate the display mode to change between the display views";
-            }
-            else if (nextIndex == 3)
-            {
-                uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
-            }
-            else if (nextIndex == 4)
-            {
-                uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
-            }
-            else if (nextIndex == 5)
-            {
-                uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
-            }
-            else if (nextIndex == 6)
-            {
-                uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
-            }
-            else if (nextIndex == 7)
-            {
-                uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
-            }
-            else if (nextIndex == 8)
-            {
-                uiTextSmall.text = "This button activates the water supply";
-            }
-            else if (nextIndex == 9)
-            {
-                uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
-            }
-            else if (nextIndex == 10)
-            {
-                uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
-            }
+            uiTextSmall.text = infoTexts[nextIndex];
         }
     }
 
@@ -375,13 +355,5 @@ public class DemoMode : MonoBehaviour
             drsActive.text = "TESTED 2/2";
             drsActive.color = Color.green;
         }
-    }
-
-    //quit current mode and load menu scene
-    public void QuitButtonClicked()
-    {
-        audioSource.clip = buttonClick;
-        audioSource.Play();
-        SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 }

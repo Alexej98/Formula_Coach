@@ -7,33 +7,22 @@ using TMPro;
 
 public class TutorialMode : MonoBehaviour
 {
-    GameObject radioButton;
-    GameObject confirmButton;
-    GameObject pitLimiterButton;
-    GameObject drinkButton;
-    GameObject neutralButton;
-    GameObject drsButton;
-    GameObject button1;
-    GameObject button10;
-    GameObject middleRotate;
-    GameObject car;
-    GameObject rearWing;
-    GameObject steeringWheel;
-    GameObject f1;
-    Button helpButton;
-    Button quitButton;
-    [SerializeField] Button infoButton;
+    [SerializeField] GameObject rearWing;
+    [SerializeField] GameObject steeringWheel;
+    [SerializeField] GameObject f1;
 
-    GameObject racingDisplay;
-    GameObject testingDisplay;
+    [SerializeField] Button helpButton;
+
+    [SerializeField] GameObject racingDisplay;
+    [SerializeField] GameObject testingDisplay;
 
     private LayerMask layerMask;
 
-    public Material[] materialOriginals;
-    public Material[] materialCopies;
-    public Material[][] materialOriginalsList = new Material[3][];
-    public GameObject[] carObjects;
-    public int selectedObject;
+    private Material[] materialOriginals;
+    private Material[] materialCopies;
+    private Material[][] materialOriginalsList = new Material[3][];
+    private GameObject[] carObjects;
+    private int selectedObject;
 
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
@@ -68,30 +57,55 @@ public class TutorialMode : MonoBehaviour
     public static int finalTips = 0;
     public static int finalErrors = 0;
 
-    Scene scene;
+    private string[] helpTexts =
+    {
+        "It's right in front of you!",
+        "It's on the car!",
+        "It's the big rotation knob under the display",
+        "It's the one to the left of the Pit Limiter Button",
+        "It's just left from the main display!",
+        "It's the furthest button to the left",
+        "It's the big button in the upper right corner",
+        "It's the big button in the upper left corner",
+        "It's next to the bottom left corner of the display",
+        "It's right from the rotation knob",
+        "It's right from the rotation knob"
+    };
+
+    private string[] infoTexts =
+    {
+        "",
+        "",
+        "Here you can activate the display mode to change between the display views",
+        "While checking the individual information of the car, this button skips through the views on the display",
+        "By pressing it, you can communicate with your team engineer",
+        "This button is used when a driver has to confirm to box in the current lap",
+        "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit",
+        "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear",
+        "This button activates the water supply",
+        "One of the most important buttons. It opens the rear wing and makes overtaking easier",
+        "By pressing the button again, or braking, the rear wing gets closed"
+    };
+
+    private string[] animatorStates =
+{
+        "pressed",
+        "closer",
+        "middle",
+        "one",
+        "radio",
+        "confirm",
+        "pit",
+        "neutral",
+        "drink",
+        "drs",
+        "drsAgain"
+    };
 
     void Start()
     {
         CameraController.rotationEnabled = true;
-        scene = SceneManager.GetActiveScene();
-        radioButton = GameObject.FindGameObjectWithTag("RadioButton");
-        confirmButton = GameObject.FindGameObjectWithTag("ConfirmButton");
-        pitLimiterButton = GameObject.FindGameObjectWithTag("PitLimiterButton");
-        drinkButton = GameObject.FindGameObjectWithTag("DrinkButton");
-        neutralButton = GameObject.FindGameObjectWithTag("NeutralButton");
-        drsButton = GameObject.FindGameObjectWithTag("DRSButton");
-        quitButton = GameObject.FindGameObjectWithTag("QuitButtonDemo").GetComponent<Button>();
-        button1 = GameObject.FindGameObjectWithTag("+1Button");
-        quitButton.onClick.AddListener(QuitButtonClicked);
-        button10 = GameObject.FindGameObjectWithTag("-10Button");
-        middleRotate = GameObject.FindGameObjectWithTag("MiddleRotate");
-        rearWing = GameObject.FindGameObjectWithTag("RearWingPivot");
-        car = GameObject.FindGameObjectWithTag("Car");
-        steeringWheel = GameObject.FindGameObjectWithTag("SteeringWheel");
-        f1 = GameObject.FindGameObjectWithTag("F1");
 
-        racingDisplay = GameObject.FindGameObjectWithTag("RacingDisplay");
-        testingDisplay = GameObject.FindGameObjectWithTag("TestingDisplay");
         racingDisplay.SetActive(false);
         testingDisplay.SetActive(false);
 
@@ -101,23 +115,14 @@ public class TutorialMode : MonoBehaviour
         rearWingAnimator = rearWing.GetComponent<Animator>();
 
         layerMask = LayerMask.GetMask("Selectable");
-
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton = GameObject.FindGameObjectWithTag("HelpButton").GetComponent<Button>();
-            helpButton.onClick.AddListener(HelpButtonClicked);
-        }
-
+     
         uiTextSmall.enabled = false;
     }
 
     void Update()
     {
         UpdateSelection();
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            errorHelpText.text = errorCounter + "\n" + helpCounter;
-        }
+        errorHelpText.text = errorCounter + "\n" + helpCounter;
         if (Input.GetMouseButtonDown(0) && nextIndex >= 0 && nextIndex < objectsInOrder.Length)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -214,10 +219,7 @@ public class TutorialMode : MonoBehaviour
         }
         EnableCollider();
         nextIndex++;
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpText.text = "";
-        }
+        helpText.text = "";
         CheckOnEnd();
         CameraController.rotationEnabled = !CameraController.rotationEnabled;
         cameraAnimator.enabled = false;
@@ -244,11 +246,11 @@ public class TutorialMode : MonoBehaviour
     //play the sound of the current state
     void PlaySound()
     {
-        if (objectsInOrder[nextIndex] == radioButton)
+        if (nextIndex == 4)
         {
             audioSource.Play();
         }
-        else if (objectsInOrder[nextIndex] == drinkButton)
+        else if (nextIndex == 8)
         {
             audioSource.clip = slurp;
             audioSource.Play();
@@ -266,19 +268,13 @@ public class TutorialMode : MonoBehaviour
         {
             gbjCollider.enabled = false;
         }
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton.interactable = false;
-        }
+        helpButton.interactable = false;
     }
 
     //enable colliders after animation is finished
     void EnableCollider()
     {
-        if (scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpButton.interactable = true;
-        }
+        helpButton.interactable = true;
         for (int childIndex = 0; childIndex < f1.transform.childCount; childIndex++)
         {
             var child = f1.transform.GetChild(childIndex);
@@ -324,71 +320,19 @@ public class TutorialMode : MonoBehaviour
     //enable the animator of the current state
     void EnableAnimator()
     {
-        if (nextIndex == 0)
-        {
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("pressed", true);
-        }
-        else if (nextIndex == 1)
+        if (nextIndex != 0 && nextIndex != 10)
         {
             animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("closer", true);
         }
-        else if (nextIndex == 2)
+        cameraAnimator.enabled = true;
+        cameraAnimator.SetBool(animatorStates[nextIndex], true);
+        if (nextIndex == 9)
         {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("middle", true);
-        }
-        else if (nextIndex == 3)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("one", true);
-        }
-        else if (nextIndex == 4)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("radio", true);
-        }
-        else if (nextIndex == 5)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("confirm", true);
-        }
-        else if (nextIndex == 6)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("pit", true);
-        }
-        else if (nextIndex == 7)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("neutral", true);
-        }
-        else if (nextIndex == 8)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("drink", true);
-        }
-        else if (nextIndex == 9)
-        {
-            animator.SetBool("pressed", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("drs", true);
             rearWingAnimator.SetBool("open", true);
         }
         else if (nextIndex == 10)
         {
             animator.SetBool("pressedAgain", true);
-            cameraAnimator.enabled = true;
-            cameraAnimator.SetBool("drs", false);
             rearWingAnimator.SetBool("open", false);
         }
     }
@@ -404,42 +348,7 @@ public class TutorialMode : MonoBehaviour
         {
             uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the " + objectsInOrder[nextIndex].name + "!";
         }
-        if (nextIndex == 2)
-        {
-            uiTextSmall.text = "Here you can activate the display mode to change between the display views";
-        }
-        else if (nextIndex == 3)
-        {
-            uiTextSmall.text = "While checking the individual information of the car, this button skips through the views on the display";
-        }
-        else if (nextIndex == 4)
-        {
-            uiTextSmall.text = "By pressing it, you can communicate with your team engineer";
-        }
-        else if (nextIndex == 5)
-        {
-            uiTextSmall.text = "This button is used when a driver has to confirm to box in the current lap";
-        }
-        else if (nextIndex == 6)
-        {
-            uiTextSmall.text = "When driving into the pit lane, the maximum speed of the car is 60km/h. This button applies the limit";
-        }
-        else if (nextIndex == 7)
-        {
-            uiTextSmall.text = "When the car is standing still or the pit lane crew is changing tyres, this button deselects the current gear";
-        }
-        else if (nextIndex == 8)
-        {
-            uiTextSmall.text = "This button activates the water supply";
-        }
-        else if (nextIndex == 9)
-        {
-            uiTextSmall.text = "One of the most important buttons. It opens the rear wing and makes overtaking easier";
-        }
-        else if (nextIndex == 10)
-        {
-            uiTextSmall.text = "By pressing the button again, or braking, the rear wing gets closed";
-        }
+        uiTextSmall.text = infoTexts[nextIndex];
     }
 
     //change the text on the wheel display
@@ -483,133 +392,15 @@ public class TutorialMode : MonoBehaviour
     }
 
     //show the help text when helpButton is clicked
-    void HelpButtonClicked()
+    public void HelpButtonClicked()
     {
-        switch (nextIndex)
+        helpButton.interactable = true;
+        helpText.text = helpTexts[nextIndex];
+        if (!helpButtonPressed[nextIndex])
         {
-            case 0:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's right in front of you!";
-                    if (!helpButtonPressed[0])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[0] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 1:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's on the car!";
-                    if (!helpButtonPressed[1])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[1] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 2:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's the big rotation knob under the display";
-                    if (!helpButtonPressed[2])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[2] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-
-            case 3:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's the one to the left of the Pit Limiter Button";
-                    if (!helpButtonPressed[3])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[3] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 4:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's just left from the main display!";
-                    if (!helpButtonPressed[4])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[4] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 5:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's the furthest button to the left";
-                    if (!helpButtonPressed[5])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[5] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 6:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's the big button in the upper right corner";
-                    if (!helpButtonPressed[6])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[6] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 7:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's the big button in the upper left corner";
-                    if (!helpButtonPressed[7])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[7] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-            case 8:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's next to the bottom left corner of the display";
-                    if (!helpButtonPressed[8])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[8] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
-
-            case 9:
-            case 10:
-                {
-                    helpButton.interactable = true;
-                    helpText.text = "It's right from the rotation knob";
-                    if (!helpButtonPressed[9])
-                    {
-                        helpCounter++;
-                        helpButtonPressed[9] = true;
-                        helpButton.interactable = false;
-                    }
-                    break;
-                }
+            helpCounter++;
+            helpButtonPressed[nextIndex] = true;
+            helpButton.interactable = false;
         }
     }
 
@@ -695,7 +486,7 @@ public class TutorialMode : MonoBehaviour
     {
         audioSource.clip = buttonClick;
         audioSource.Play();
-        if (scene.name == "F1_Demonstrator_TutorialMode")
+        if (SceneManager.GetActiveScene().name == "F1_Demonstrator_TutorialMode")
         {
             helpCounter = 0;
             errorCounter = 0;

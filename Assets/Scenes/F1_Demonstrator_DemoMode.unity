@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 71f14a2d79f732f4d9893ef1b911f4ff, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -5840,11 +5840,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a0428e40705774cb9a42d59c160ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoButton: {fileID: 152522303}
-  materialOriginals: []
-  materialCopies: []
-  carObjects: []
-  selectedObject: 0
+  rearWing: {fileID: 0}
+  steeringWheel: {fileID: 0}
+  f1: {fileID: 0}
+  helpButton: {fileID: 0}
+  racingDisplay: {fileID: 0}
+  testingDisplay: {fileID: 0}
   audioSource: {fileID: 1536035846}
   uiText: {fileID: 1009952687}
   uiTextSmall: {fileID: 1889517419}
@@ -5919,9 +5920,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardButton: {fileID: 1019558905}
   backButton: {fileID: 1420997921}
-  materialOriginals: []
-  materialCopies: []
-  carObjects: []
+  rearWing: {fileID: 6532713721168801354}
+  f1: {fileID: 919132148249295396}
+  racingDisplay: {fileID: 3546709}
+  testingDisplay: {fileID: 1418115515}
   selectedObject: 0
   audioSource: {fileID: 1583605794}
   uiText: {fileID: 1009952687}
@@ -20346,7 +20348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Step 1: Press the car to get in!'
+  m_text: 'Step 1/1: Press the car to get in!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ddeab3f6e1efc6c4bbee14e8f6de2407, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: ddeab3f6e1efc6c4bbee14e8f6de2407, type: 2}
