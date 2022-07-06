@@ -18,14 +18,6 @@ public class DemoMode : MonoBehaviour
     [SerializeField] GameObject racingDisplay;
     [SerializeField] GameObject testingDisplay;
 
-    private LayerMask layerMask;
-
-    private Material[] materialOriginals;
-    private Material[] materialCopies;
-    private Material[][] materialOriginalsList = new Material[3][];
-    private GameObject[] carObjects;
-    public int selectedObject;
-
     [SerializeField] AudioSource audioSource;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI uiTextSmall;
@@ -47,32 +39,7 @@ public class DemoMode : MonoBehaviour
     public Animator cameraAnimator;
     public Animator rearWingAnimator;
 
-    private GameObject selectedGameObject;
-    private Material selectedGameObjectMaterial;
-    public GameObject SelectedGameObject => selectedGameObject;
-
     public int nextIndex = 0;
-    public int buttonIndex = 0;
-
-    public static int helpCounter = 0;
-    public static int errorCounter = 0;
-
-    Scene scene;
-
-    private string[] helpTexts =
-    {
-        "It's right in front of you!",
-        "It's on the car!",
-        "It's the big rotation knob under the display",
-        "It's the one to the left of the Pit Limiter Button",
-        "It's just left from the main display!",
-        "It's the furthest button to the left",
-        "It's the big button in the upper right corner",
-        "It's the big button in the upper left corner",
-        "It's next to the bottom left corner of the display",
-        "It's right from the rotation knob",
-        "It's right from the rotation knob"
-    };
 
     private string[] infoTexts =
     {
@@ -89,21 +56,6 @@ public class DemoMode : MonoBehaviour
         "By pressing the button again, or braking, the rear wing gets closed"
     };
 
-    private string[] animatorStates =
-{
-        "pressed",
-        "closer",
-        "middle",
-        "one",
-        "radio",
-        "confirm",
-        "pit",
-        "neutral",
-        "drink",
-        "drs",
-        "drsAgain"
-    };
-
     void Start()
     {
         demoSceneLoaded = true;
@@ -115,8 +67,6 @@ public class DemoMode : MonoBehaviour
         animator = Camera.main.GetComponent<Animator>();
         cameraAnimator = Camera.main.GetComponent<Animator>();
         rearWingAnimator = rearWing.GetComponent<Animator>();
-
-        layerMask = LayerMask.GetMask("Selectable");
 
         //disable collider
         foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
