@@ -5436,7 +5436,7 @@ GameObject:
   - component: {fileID: 270647998}
   m_Layer: 5
   m_Name: 'QuitButton '
-  m_TagString: QuitButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7535,7 +7535,7 @@ GameObject:
   - component: {fileID: 368234181}
   m_Layer: 5
   m_Name: Title
-  m_TagString: Title
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10181,10 +10181,9 @@ GameObject:
   - component: {fileID: 501811240}
   - component: {fileID: 501811239}
   - component: {fileID: 501811238}
-  - component: {fileID: 501811242}
   m_Layer: 5
   m_Name: Controls
-  m_TagString: Controls
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10239,7 +10238,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 280979220}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -10273,23 +10272,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3.023, y: 0}
   m_SizeDelta: {x: 3, y: 7.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &501811242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 501811237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3d45b9fc0624b409ce7b0daf69a34e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClips:
-  - {fileID: 8300000, guid: 642fe94026b334949a2295a638e1267b, type: 3}
-  - {fileID: 8300000, guid: 19ecb7aa01c74534fb72450e31acae6b, type: 3}
-  buttonAudioSource: {fileID: 1536035846}
-  backgroundAudioSource: {fileID: 0}
 --- !u!1 &526526252
 GameObject:
   m_ObjectHideFlags: 0
@@ -14345,7 +14327,7 @@ GameObject:
   - component: {fileID: 743052276}
   m_Layer: 5
   m_Name: ControlButton
-  m_TagString: ControlButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15074,8 +15056,8 @@ GameObject:
   - component: {fileID: 784703486}
   - component: {fileID: 784703489}
   m_Layer: 5
-  m_Name: Back
-  m_TagString: BackButton
+  m_Name: BackButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15144,7 +15126,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 501811242}
+      - m_Target: {fileID: 1475100832}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
         m_MethodName: CameraAnimationBack
         m_Mode: 1
@@ -28420,6 +28402,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 19ecb7aa01c74534fb72450e31acae6b, type: 3}
   buttonAudioSource: {fileID: 1536035846}
   backgroundAudioSource: {fileID: 1392880909}
+  tutorialButton: {fileID: 1479394370}
+  demoButton: {fileID: 1991444033}
+  controlButton: {fileID: 743052274}
+  quitButton: {fileID: 270647993}
+  backButton: {fileID: 784703484}
+  title: {fileID: 368234179}
+  controls: {fileID: 501811237}
 --- !u!65 &1478356837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28448,7 +28437,7 @@ GameObject:
   - component: {fileID: 1479394375}
   m_Layer: 5
   m_Name: TutorialButton
-  m_TagString: TutorialButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38014,7 +38003,7 @@ GameObject:
   - component: {fileID: 1991444038}
   m_Layer: 5
   m_Name: DemoButton
-  m_TagString: DemoButton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,16 +9,40 @@ public class TextChanger : MonoBehaviour
     [SerializeField] TextMeshProUGUI congratulationText;
     private int errorCounter = TutorialMode.finalErrors;
     private int helpCounter = TutorialMode.finalTips;
+    private string mistakes;
+    private string tips;
 
     void Start()
     {
+        SingularPluralCheck();
         ChangeText();
+    }
+
+    //check whether singular of plural for "mistake/tip" should be used
+    void SingularPluralCheck()
+    {
+        if (errorCounter == 1)
+        {
+            mistakes = " mistake ";
+        } 
+        else
+        {
+            mistakes = " mistakes ";
+        }
+        if (helpCounter == 1)
+        {
+            tips = " tip ";
+        }
+        else
+        {
+            tips = " tips ";
+        }
     }
 
     //changes the text in dependence of the errorCounter
     void ChangeText()
     {
-        congratulationText.text = "Congratulations! Your car is ready to take on the podium!\n You have made " + errorCounter + " mistakes and used " + helpCounter + " tips";
+        congratulationText.text = "Congratulations! Your car is ready to take on the podium!\n You have made " + errorCounter + mistakes + "and used " + helpCounter + tips;
         if (errorCounter == 0)
         {
             uiText.text = "You are a true professional. See you next season!";

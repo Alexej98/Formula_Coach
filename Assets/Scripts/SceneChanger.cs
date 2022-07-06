@@ -8,25 +8,18 @@ public class SceneChanger : MonoBehaviour
     [SerializeField] AudioClip[] audioClips;
     [SerializeField] AudioSource buttonAudioSource;
     [SerializeField] AudioSource backgroundAudioSource;
-    GameObject tutorialButton;
-    GameObject demoButton;
-    GameObject controlButton;
-    GameObject quitButton;
-    GameObject backButton;
-    GameObject title;
-    GameObject controls;
+    [SerializeField] GameObject tutorialButton;
+    [SerializeField] GameObject demoButton;
+    [SerializeField] GameObject controlButton;
+    [SerializeField] GameObject quitButton;
+    [SerializeField] GameObject backButton;
+    [SerializeField] GameObject title;
+    [SerializeField] GameObject controls;
     Animator animator;
 
     private void Start()
     {
         animator = Camera.main.GetComponent<Animator>();
-        tutorialButton = GameObject.FindGameObjectWithTag("TutorialButton");
-        demoButton = GameObject.FindGameObjectWithTag("DemoButton");
-        controlButton = GameObject.FindGameObjectWithTag("ControlButton");
-        quitButton = GameObject.FindGameObjectWithTag("QuitButton");
-        backButton = GameObject.FindGameObjectWithTag("BackButton");
-        title = GameObject.FindGameObjectWithTag("Title");
-        controls = GameObject.FindGameObjectWithTag("Controls");
     }
 
     //load target scene
@@ -38,10 +31,7 @@ public class SceneChanger : MonoBehaviour
     //destroy the menu buttons and start transition to start position
     IEnumerator LoadSceneRoutine(string name)
     {
-        if (!backgroundAudioSource.Equals(null))
-        {
-            backgroundAudioSource.Stop();
-        }
+        backgroundAudioSource.Stop();
         buttonAudioSource.clip = audioClips[0];
         buttonAudioSource.Play();
         Destroy(tutorialButton);
@@ -98,8 +88,8 @@ public class SceneChanger : MonoBehaviour
         buttonAudioSource.clip = audioClips[0];
         buttonAudioSource.Play();
         animator.SetBool("pressed", false);
-        backButton.SetActive(false);
         controls.transform.position = new Vector3(controls.transform.position.x, 0f, controls.transform.position.z);
+        backButton.SetActive(false);
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         tutorialButton.SetActive(true);
         demoButton.SetActive(true);
