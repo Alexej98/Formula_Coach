@@ -6,4 +6,4 @@ If, however, you would like to add it to your project, you can download it using
 
 https://cloud.haw-hamburg.de/index.php/s/TsxCARzlWdhJWRh/download 
 
-and the password: 'VS_Demo'. Then add it to the folder 'Assets/FBX/textures'.
+and the password: 'VS_Demo'. Then add it to the folder 'Assets/FBX/textures' and add it to the material Road_suzuka in that same folder.
