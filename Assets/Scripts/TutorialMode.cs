@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class ButtonPresser : MonoBehaviour
+public class TutorialMode : MonoBehaviour
 {
     GameObject radioButton;
     GameObject confirmButton;
@@ -70,7 +70,6 @@ public class ButtonPresser : MonoBehaviour
 
     Scene scene;
 
-    // Start is called before the first frame update
     void Start()
     {
         CameraController.rotationEnabled = true;
@@ -112,7 +111,6 @@ public class ButtonPresser : MonoBehaviour
         uiTextSmall.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateSelection();
@@ -140,8 +138,10 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //start animation of the current state and change the texts
     IEnumerator waitForSomeTime(RaycastHit hit)
     {
+        helpText.text = "";
         CameraController.rotationEnabled = !CameraController.rotationEnabled;
         if (nextIndex != 0)
         {
@@ -223,6 +223,7 @@ public class ButtonPresser : MonoBehaviour
         cameraAnimator.enabled = false;
     }
 
+    //check whether the current step was the last one
     void CheckOnEnd()
     {
         if (nextIndex == objectsInOrder.Length)
@@ -240,6 +241,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //play the sound of the current state
     void PlaySound()
     {
         if (objectsInOrder[nextIndex] == radioButton)
@@ -253,6 +255,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //disable colliders of the buttons while animation is playing
     void DisableCollider(RaycastHit hit)
     {
         if (nextIndex == 0 || nextIndex == 1)
@@ -269,6 +272,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //enable colliders after animation is finished
     void EnableCollider()
     {
         if (scene.name == "F1_Demonstrator_TutorialMode")
@@ -317,6 +321,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //enable the animator of the current state
     void EnableAnimator()
     {
         if (nextIndex == 0)
@@ -388,15 +393,16 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //change the UIText
     void ChangeUIText()
     {
         if (nextIndex == 10)
         {
-            uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button again!";
+            uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the DRS button again!";
         }
         else
         {
-            uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
+            uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the " + objectsInOrder[nextIndex].name + "!";
         }
         if (nextIndex == 2)
         {
@@ -436,6 +442,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //change the text on the wheel display
     void ChangeWheelText()
     {
         if (nextIndex == 4)
@@ -475,19 +482,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
-    public void QuitButtonClicked()
-    {
-        audioSource.clip = buttonClick;
-        audioSource.Play();
-        if(scene.name == "F1_Demonstrator_TutorialMode")
-        {
-            helpCounter = 0;
-            errorCounter = 0;
-            nextIndex = 0;
-        }
-        SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
-    }
-
+    //show the help text when helpButton is clicked
     void HelpButtonClicked()
     {
         switch (nextIndex)
@@ -618,6 +613,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //check whether a game object is selected (hover)
     private void UpdateSelection()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -645,6 +641,7 @@ public class ButtonPresser : MonoBehaviour
         }
     }
 
+    //change the material/s of game object while hovering
     private void Select(GameObject selectedGameObject)
     {
         this.selectedGameObject = selectedGameObject;
@@ -675,6 +672,7 @@ public class ButtonPresser : MonoBehaviour
 
     }
 
+    //change the material/s of the game object back to normal when leaving the collider
     private void DeSelect()
     {
         if (nextIndex <= 1)
@@ -692,9 +690,17 @@ public class ButtonPresser : MonoBehaviour
         selectedGameObject = null;
     }
 
-    bool AnimatorIsPlaying()
+    //quit current mode and load menu scene
+    public void QuitButtonClicked()
     {
-        return animator.GetCurrentAnimatorStateInfo(0).length >
-               animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        audioSource.clip = buttonClick;
+        audioSource.Play();
+        if (scene.name == "F1_Demonstrator_TutorialMode")
+        {
+            helpCounter = 0;
+            errorCounter = 0;
+            nextIndex = 0;
+        }
+        SceneManager.LoadScene("F1_Demonstrator_EditedMenu");
     }
 }

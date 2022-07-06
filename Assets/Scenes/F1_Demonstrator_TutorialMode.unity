@@ -3039,7 +3039,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Step 1: Press the car to get in!'
+  m_text: 'Step 1/12: Press the car to get in!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ddeab3f6e1efc6c4bbee14e8f6de2407, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: ddeab3f6e1efc6c4bbee14e8f6de2407, type: 2}

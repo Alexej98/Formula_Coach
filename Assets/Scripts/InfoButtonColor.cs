@@ -22,6 +22,7 @@ public class InfoButtonColor : MonoBehaviour
         originalColor = buttonColor.selectedColor;
     }
 
+    //change the state and text of the button when clicked
     public void ChangeInfoState()
     {
         infoButtonOn = !infoButtonOn;
@@ -38,12 +39,14 @@ public class InfoButtonColor : MonoBehaviour
         }
     }
 
+    //change buttonColor while hovering
     public void ChangeWhenHover()
     {
         buttonColor.selectedColor = wantedColor;
         infoButton.colors = buttonColor;
     }
 
+    //change buttonColor back to normal when leaving
     public void ChangeWhenLeave()
     {
         buttonColor.selectedColor = originalColor;

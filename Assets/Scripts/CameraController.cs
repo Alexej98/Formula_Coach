@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        nextIndex = ButtonPresser.nextIndex;
+        nextIndex = TutorialMode.nextIndex;
         if (Input.GetMouseButton(1) && rotationEnabled)
         {
             RotateCamera();

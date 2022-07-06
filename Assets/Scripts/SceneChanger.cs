@@ -29,18 +29,13 @@ public class SceneChanger : MonoBehaviour
         controls = GameObject.FindGameObjectWithTag("Controls");
     }
 
-    public void LoadSceneFromEnd(string name)
-    {
-        buttonAudioSource.clip = audioClips[0];
-        buttonAudioSource.Play();
-        SceneManager.LoadScene(name);
-    }
-
+    //load target scene
     public void LoadScene(string name)
     {
         StartCoroutine(LoadSceneRoutine(name));
     }
 
+    //destroy the menu buttons and start transition to start position
     IEnumerator LoadSceneRoutine(string name)
     {
         if (!backgroundAudioSource.Equals(null))
@@ -60,22 +55,21 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    public void HoverSound()
+    //load scene from post game screen
+    public void LoadSceneFromEnd(string name)
     {
-        buttonAudioSource.clip = audioClips[1];
+        buttonAudioSource.clip = audioClips[0];
         buttonAudioSource.Play();
+        SceneManager.LoadScene(name);
     }
 
+    //animation to the controls text
     public void CameraAnimation()
     {
         StartCoroutine("ControlsAnimation");
     }
 
-    public void CameraAnimationBack()
-    {
-        StartCoroutine("ControlsAnimationBack");
-    }
-
+    //disable menu buttons and start transition
     IEnumerator ControlsAnimation()
     {
         buttonAudioSource.clip = audioClips[0];
@@ -90,9 +84,15 @@ public class SceneChanger : MonoBehaviour
         yield return new WaitForSeconds(animator.runtimeAnimatorController.animationClips[0].length);
         controls.transform.position = new Vector3(controls.transform.position.x, 0.06f, controls.transform.position.z);
         backButton.SetActive(true);
-        
     }
 
+    //animation back to the menu buttons
+    public void CameraAnimationBack()
+    {
+        StartCoroutine("ControlsAnimationBack");
+    }
+
+    //start transition, enable menu buttons after transition is finished
     IEnumerator ControlsAnimationBack()
     {
         buttonAudioSource.clip = audioClips[0];
@@ -108,6 +108,14 @@ public class SceneChanger : MonoBehaviour
         title.SetActive(true);
     }
 
+    //button hover sound
+    public void HoverSound()
+    {
+        buttonAudioSource.clip = audioClips[1];
+        buttonAudioSource.Play();
+    }
+
+    //quit the application
     public void Quit()
     {
         buttonAudioSource.clip = audioClips[0];

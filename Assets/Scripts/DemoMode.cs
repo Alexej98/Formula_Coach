@@ -11,7 +11,6 @@ public class DemoMode : MonoBehaviour
     [SerializeField] Button backButton;
 
     public static bool demoSceneLoaded = false;
-    private bool coroutineStarted = false;
 
     GameObject radioButton;
     GameObject confirmButton;
@@ -60,7 +59,6 @@ public class DemoMode : MonoBehaviour
     public Animator cameraAnimator;
     public Animator rearWingAnimator;
 
-    [SerializeField] private Material highlightMaterial = null;
     private GameObject selectedGameObject;
     private Material selectedGameObjectMaterial;
     public GameObject SelectedGameObject => selectedGameObject;
@@ -105,11 +103,13 @@ public class DemoMode : MonoBehaviour
 
         layerMask = LayerMask.GetMask("Selectable");
 
+        //disable collider
         foreach (Collider gbjCollider in f1.GetComponentsInChildren<Collider>())
         {
             gbjCollider.enabled = false;
         }
 
+        //if backButton is clicked...
         backButton.onClick.AddListener(() =>
         {
             cameraAnimator.enabled = true;
@@ -122,6 +122,7 @@ public class DemoMode : MonoBehaviour
             LoopAnimation();
         });
 
+        //if forwardButton is clicked...
         forwardButton.onClick.AddListener(() =>
         {
             cameraAnimator.enabled = true;
@@ -158,6 +159,7 @@ public class DemoMode : MonoBehaviour
         }
     }
 
+    //loop the current animation
     void LoopAnimation()
     {
         ChangeStepText();
@@ -233,6 +235,7 @@ public class DemoMode : MonoBehaviour
         ChangeWheelText();
     }
 
+    //stop the current animation
     void StopAnimation()
     {
         if(nextIndex == 1)
@@ -259,25 +262,26 @@ public class DemoMode : MonoBehaviour
         }
     }
 
+    //change the UIText
     void ChangeStepText()
     {
         if(nextIndex != objectsInOrder.Length)
         {
             if (nextIndex == 0)
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the car to get in!";
+                uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the car to get in!";
             }
             else if (nextIndex == 9)
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button!";
+                uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the DRS button!";
             }
             else if (nextIndex == 10)
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the DRS button again!";
+                uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the DRS button again!";
             }
             else
             {
-                uiText.text = "Step " + (nextIndex + 1) + ": Press the " + objectsInOrder[nextIndex].name + "!";
+                uiText.text = "Step " + (nextIndex + 1) + "/" + (objectsInOrder.Length) + ": Press the " + objectsInOrder[nextIndex].name + "!";
             }
             if (nextIndex == 2)
             {
@@ -318,6 +322,7 @@ public class DemoMode : MonoBehaviour
         }
     }
 
+    //change the text on the wheel display
     void ChangeWheelText()
     {
         if(nextIndex == 3)
@@ -372,6 +377,7 @@ public class DemoMode : MonoBehaviour
         }
     }
 
+    //quit current mode and load menu scene
     public void QuitButtonClicked()
     {
         audioSource.clip = buttonClick;

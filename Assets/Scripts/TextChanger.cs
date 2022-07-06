@@ -7,8 +7,8 @@ public class TextChanger : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] TextMeshProUGUI congratulationText;
-    private int errorCounter = ButtonPresser.finalErrors;
-    private int helpCounter = ButtonPresser.finalTips;
+    private int errorCounter = TutorialMode.finalErrors;
+    private int helpCounter = TutorialMode.finalTips;
 
     void Start()
     {
