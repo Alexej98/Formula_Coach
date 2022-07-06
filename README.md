@@ -1,4 +1,4 @@
-# Virtuelle_Systeme
+# Virtuelle Systeme
 Formel 1 Lenkrad Demonstrator für das Modul "Virtuelle Systeme"
 
 The normal map for the road is too large to upload to github. We tried using Git lfs, but it still didn't work.
